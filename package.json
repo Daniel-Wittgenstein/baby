@@ -10,7 +10,7 @@
     "build-runtime": "node ./build-runtime.js",
     "test": "vitest",
     "test-mobile": "npm run dev -- --host",
-    "deploy": "gh-pages -d dist",
+    "deploy": "npm run build && npm run build-runtime && gh-pages -d dist --add",
     "deploy:itch": "npm run build && npm run build-runtime && zip -r dist.zip dist && butler push dist.zip oxfordgirls/babytxt:html"
   },
   "devDependencies": {

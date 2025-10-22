@@ -2,7 +2,7 @@
 // @ts-ignore
 import { defineConfig } from "vite"
 
-const GITHUB_URL = "/https://github.com/Daniel-Wittgenstein/baby.txt/"
+const GITHUB_URL = "/baby/"
 
 export default defineConfig({
   /* for itch. io deployment, use:      base: './'    
