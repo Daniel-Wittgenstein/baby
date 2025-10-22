@@ -1,0 +1,26 @@
+{
+  "name": "two-pane-editor",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "build-runtime": "node ./build-runtime.js",
+    "test": "vitest",
+    "test-mobile": "npm run dev -- --host",
+    "deploy": "gh-pages -d dist",
+    "deploy:itch": "npm run build && npm run build-runtime && zip -r dist.zip dist && butler push dist.zip oxfordgirls/babytxt:html"
+  },
+  "devDependencies": {
+    "@types/node": "24.6.2",
+    "gh-pages": "6.3.0",
+    "typescript": "5.2.2",
+    "vite": "5.2.0",
+    "vitest": "3.2.4"
+  },
+  "dependencies": {
+    "codejar": "4.3.0"
+  }
+}

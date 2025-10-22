@@ -1,0 +1,64 @@
+
+
+:root {
+  --sm_top-height: 48px;
+}
+
+
+#sm_top {
+  /* 
+    This is the top bar.
+    It has to be adjusted via a JS hack for smartphones:
+    see file:
+    fixHeader.ts
+    Any change you make here has the potential to break everything,
+    so proceed with caution.
+  */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transform: translateY(0);
+  /* transition: transform 0.15s ease; optional: smooth transition when 
+  top bar gets newly placed. not really needed.
+  i actually think it looks better without this. */
+  width: 100vw;
+  height: var(--sm_top-height);
+  background: #bbb;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+#sm_top button {
+  width: calc(var(--sm_top-height) - 2px);
+  height: calc(var(--sm_top-height) - 2px);
+  background: #fff;
+  color: #000;
+  border: none;
+}
+
+
+#sm_main {
+  position: fixed;
+  left: 0;
+  top: var(--sm_top-height);
+  width: 100vw;
+  height: calc(100vh - var(--sm_top-height));
+  overflow: auto;
+}
+
+
+#sm_code-wrapper {
+  display: none;
+}
+
+
+#sm_play-wrapper {
+  display: none;
+}
+
+

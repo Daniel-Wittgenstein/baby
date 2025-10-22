@@ -1,0 +1,80 @@
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+  z-index: 9999;
+}
+
+.confirm-overlay.show {
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+}
+
+.confirm-overlay.hide {
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.confirm-modal {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 400px;
+  width: 80%;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.confirm-modal.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.confirm-modal.hide {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+.confirm-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.confirm-button {
+  background-color: var(--bg);
+  color: var(--text);
+  border: 4px solid var(--accent);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cancel-button {
+  background-color: var(--bg);
+  color: var(--text);
+  border: 4px solid var(--text);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.confirm-button:hover {
+  opacity: 0.85;
+}
+
+.cancel-button:hover {
+  opacity: 0.85;
+}

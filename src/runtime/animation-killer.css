@@ -1,0 +1,6 @@
+
+.no-anims, .no-anims * {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}

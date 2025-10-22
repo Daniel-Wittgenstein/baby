@@ -1,0 +1,189 @@
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+:root {
+  --accent: #d00;
+  --text: #000;
+  --bg: #fff;
+  --top-box-height: 32px;
+  --bottom-box-height: 24px;
+}
+
+
+body {
+  margin: 0px;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+
+.user-error {
+  border: 4px solid #d00;
+  padding: 12px;
+}
+
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+.wrapper-box {
+}
+
+
+#top-box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: var(--top-box-height);
+  display: flex;
+  align-items: center;
+}
+
+#main {
+  position: absolute;
+  left: 0;
+  top: var(--top-box-height);
+  width: 100vw;
+  height: calc(100vh - var(--top-box-height) - var(--bottom-box-height));
+  overflow: hidden;
+  padding: 8px;
+}
+
+#bottom-box {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: var(--bottom-box-height);
+}
+
+
+.choice {
+  animation: slideInRight 0.5s forwards;
+  border: 4px solid var(--text);
+  padding: 12px;
+  cursor: pointer;
+  transform-origin: center;
+  transform: scaleY(1); 
+}
+
+
+.story-paragraph {
+  animation: slideInRight 0.5s forwards;
+}
+
+
+.trans-out-element {
+  animation: slideOutLeft 0.6s forwards;
+}
+
+
+.discarded-choice {
+  animation: discardedChoiceAnim 0.6s forwards;
+}
+
+
+.selected-choice {
+  animation: selectedChoiceAnim 0.69s forwards;
+}
+
+
+.non-choice-out {
+  animation: slideOutLeft 0.6s forwards;
+}
+
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+@keyframes selectedChoiceAnim {
+  0% {
+    opacity: 1;
+    border-color: var(--text);
+  }
+
+  50% {
+    opacity: 1;
+    border-color: var(--accent);
+  }
+
+  100% {
+    opacity: 0;
+    border-color: var(--accent);
+  }
+}
+
+
+@keyframes discardedChoiceAnim {
+  0% {
+    opacity: 1;
+    transform: scaleY(1); 
+  }
+
+  100% {
+    opacity: 0;
+    transform: scaleY(0); 
+  }
+}
+
+.menu-button {
+  width: 24px;
+  height: 24px;
+}
+
+
+.menu {
+  position: absolute;
+  left: 0;
+  top: var(--top-box-height);
+  width: 100vw;
+  height: calc(100vh - var(--top-box-height));
+  overflow: auto;
+  z-index: 9000;
+  background: var(--bg);
+  color: var(--text);
+  display: none;
+  flex-direction: column;
+}
+
+
+.menu button {
+  margin-top: 24px;
+  font-size: 18px;
+}
+
+
+body.dark .menu-button {
+  filter: invert(1);
+}
+

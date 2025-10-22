@@ -1,0 +1,14 @@
+
+button {
+  /* CSS sucks, so this is needed so that disabled choices
+  do not appear with opacity and we apply it even to
+  buttons that are not disabled, so we can style choices uniformly. */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  opacity: 1;
+  cursor: default;
+  color: inherit;
+  background: inherit;
+  border: inherit;
+}

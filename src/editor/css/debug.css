@@ -1,0 +1,23 @@
+
+
+
+#debug-compilation-result {
+  display: block;
+  border: 4px solid blue;
+  height: 90vh;
+  overflow: auto;
+  display: none;
+}
+
+.debug-page-name {
+  color: rgb(42, 34, 158);
+  font-weight: bold;
+}
+
+.debug-choice {
+  font-weight: bold;
+}
+
+.debug-gather {
+  font-weight: bold;
+}
