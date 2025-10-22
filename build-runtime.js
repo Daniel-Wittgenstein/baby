@@ -91,7 +91,18 @@ async function buildRuntime() {
 
   //and copy the runtime-built.js file into the dist folder because we need it there, too:
   const sourcePath = path.join(__dirname, 'src', 'auto-built', 'runtime-built.js')
-  const distTargetPath = path.join(__dirname, 'dist', 'src', 'auto-built', 'runtime-built.js')
+  
+  // In the following line, we
+  // do NOT copy the file into a directory named "dist/src/auto-built/" !
+  // because if you do that, gh-pages will look at the .gitignore,
+  // see a line saying "src/auto-built"
+  // and not include it in the upload breaking the deployment.
+  // And of course, you should not remove "src/auto-built"
+  // from the .gitignore file either, because that will just
+  // commit the auto-built file to "main" which is harmless, but stupid and
+  // annoying. That's why we go with a slightly different name: src/auto-builtx
+
+  const distTargetPath = path.join(__dirname, 'dist', 'src', 'auto-builtx', 'runtime-built.js')
   const distDir = path.dirname(distTargetPath)
   if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true })
   if (fs.existsSync(sourcePath)) fs.copyFileSync(sourcePath, distTargetPath)
