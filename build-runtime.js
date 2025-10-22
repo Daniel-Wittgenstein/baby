@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { build } from 'vite'
+import { readFileSync, writeFileSync } from "fs"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -106,6 +107,14 @@ async function buildRuntime() {
   const distDir = path.dirname(distTargetPath)
   if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true })
   if (fs.existsSync(sourcePath)) fs.copyFileSync(sourcePath, distTargetPath)
+
+  // and finally, fix the HTML:
+  const html = readFileSync("./dist/index.html", "utf8")
+  const updated = html.replace(
+    "<script src=\"src/auto-built/runtime-built.js\"></script>",
+    "<script src=\"src/auto-builtx/runtime-built.js\"></script>"
+  )
+  writeFileSync("./dist/index.html", updated, "utf8")
 
 }
 
