@@ -14,8 +14,6 @@ export function constructLayoutSmall() {
 
   constructIt()
 
-  handleMobileCloseButton()
-
   fixHeader()
 }
 
@@ -32,7 +30,6 @@ function constructIt() {
 
       <div>
         <button id="more-menu-button">☰</button>
-        <button id="sm_close-for-mobile">✖</button>
       </div>
     </div>
     
@@ -54,24 +51,6 @@ function constructIt() {
     </div>
   `
   parent.innerHTML = html
-}
-
-
-function handleMobileCloseButton() {
-  if (appRunsInsideIframe()) {
-    document.getElementById("sm_close-for-mobile")?.addEventListener("click", () => {
-      // for itch.io: bc android mobile back button does exactly nothing on itch.io
-      // so we need a way to exit the fullscreenified app
-      // (all other native ways suck ass and are also
-      // cumbersome for testing - or at least the ways I found)
-      mobileClose()
-    })
-  } else {
-    if (document.getElementById("sm_close-for-mobile")) {
-      //always show - at least for now - helps us test layout better and is harmless
-      //document.getElementById("sm_close-for-mobile").style.display = "none"
-    }
-  }
 }
 
 

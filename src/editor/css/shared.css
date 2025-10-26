@@ -52,10 +52,6 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  /* since menu buttons have roughly the height of the top bar
-  we offset fo the itch.io close button, so that hamburger menu ends up approximately
-  where it was*/
-  padding-right: var(--sm_top-height);
   background: pink;
 }
 
