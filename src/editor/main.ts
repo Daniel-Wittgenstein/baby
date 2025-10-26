@@ -88,6 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
 
+  document.getElementById("load-from-disk")?.addEventListener("click", () => {
+    loadProjectFromFile()
+  })
+
+
   document.getElementById("save-to-disk")?.addEventListener("click", () => {
     downloadProjectSaveFile()
   })
@@ -101,17 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
         notify(info, "notification", 7000)
       }, 2000)
     }
-  })
-
-
-  return
-
-  document.getElementById("load")?.addEventListener("click", () => {
-    loadProjectFromFile()
-  })
-
-  document.getElementById("about")?.addEventListener("click", () => {
-    notify("baby.txt")
   })
 
 
@@ -178,6 +172,7 @@ function constructMoreMenu() {
     </div>
     
     <div id="more-menu-main">
+      <button id="load-from-disk">Load Project from Device</button>
       <button id="save-to-disk">Save Project to Device</button>
       <button id="export-story">Export Story</button>
     </div>
