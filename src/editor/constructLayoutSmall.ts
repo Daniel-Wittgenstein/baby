@@ -54,13 +54,3 @@ function constructIt() {
   parent.innerHTML = html
 }
 
-
-function mobileClose() {
-  if (!appRunsInsideIframe()) return
-  if (document.referrer) {
-    window.parent.location.href = document.referrer
-  } else {
-    window.parent.location.reload()
-  }
-}
-
