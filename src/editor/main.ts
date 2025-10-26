@@ -9,6 +9,9 @@ import { downloadFile, escapeHtml } from "../interopUtils"
 import { notify } from "./notify"
 import { generateDemoCode } from "./generateDemoCode"
 
+import { getTimestampForFileName, sanitizeCurrentProjectNameForFileName }
+  from "./fileNameHandling"
+
 import { isChromeMobile } from "./detectChrome"
 
 import { constructLayoutSmall } from "./constructLayoutSmall"
@@ -29,6 +32,8 @@ const debug = {
 const PREVIEW_DELAY = 300
 
 let smallMode = false
+
+let currentProjectName: string = ""
 
 let codeJar
 
@@ -300,12 +305,29 @@ function autoIndent() {
 }
 
 
+
 function downloadProjectSaveFile() {
+
   const state = getProjectState()
+  let name = sanitizeCurrentProjectNameForFileName(currentProjectName)
+  if (!name) {
+    name = "my-project" //fallback file name
+  }
+
+  const date = getTimestampForFileName()
+
+  const suggestedFileName = name + "-" + date + ".json"
+  let fileName = prompt("Enter file name", suggestedFileName)
+  if (fileName === null) {
+    return
+  }
+
+  if (!fileName) fileName = suggestedFileName
+
   try {
     const json = JSON.stringify(state)
     // use .json as file ending, otherwise inconsistent handling by browsers
-    downloadFile(json, "project-save-file.json", "application/json")
+    downloadFile(json, fileName, "application/json")
   } catch(e) {
     notify("Failed downloading file.", "error")
     return
@@ -390,6 +412,7 @@ function loadProjectFromLocalStorage() {
 
 
 type ProjectState = {
+  name: string,
   code: string,
   magicKey: typeof MAGIC_PROJECT_SAVE_STATE_KEY,
 }
@@ -411,6 +434,7 @@ function setProjectState(state: ProjectState) {
 function getProjectState(): ProjectState {
   const code = codeJarGet()
   return {
+    name: currentProjectName,
     code,
     magicKey: MAGIC_PROJECT_SAVE_STATE_KEY,
   }
@@ -469,15 +493,26 @@ function populateCompilationResult(kompilat: Kompilat) {
 
 function updatePreview() {
   clearErrors()
-  const html = generateHtmlPage()
-  injectIntoIframe(html)
+  const res = generateHtmlPage()
+  if (res === "Error" || typeof res === "string") { // second check is for the typechecker
+    console.warn(`Could not generate HTML page.`)
+    return
+  }
+
+  const meta = res.metaData || {}
+  currentProjectName = meta.title || ""
+  
+  injectIntoIframe(res.html)
 }
 
 
 function exportStory() {
   try {
-    const html = generateHtmlPage(true)
-    downloadFile(html, "index.html", "text/html")
+    const res = generateHtmlPage(true)
+    if (res === "Error" || typeof res === "string") { // second check is for the typechecker
+      throw(`Could not generate HTML page.`)
+    }
+    downloadFile(res.html, "index.html", "text/html")
   } catch(e) {
     notify("Failed exporting.", "error")
     return
@@ -543,7 +578,10 @@ function generateHtmlPage(exported: boolean = false) {
         <meta name="author" content="${escapeHtml(kompilat.metaData.author || "")}">
         ${ifIdLine}
     `)
-  return html
+  return {
+    html,
+    metaData: kompilat.metaData,
+  }
 }
 
 
