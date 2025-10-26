@@ -9,6 +9,8 @@ import { downloadFile, escapeHtml } from "../interopUtils"
 import { notify } from "./notify"
 import { generateDemoCode } from "./generateDemoCode"
 
+import { isChromeMobile } from "./detectChrome"
+
 import { constructLayoutSmall } from "./constructLayoutSmall"
 
 import { CodeJar } from "../../node_modules/codejar/dist/codejar"
@@ -175,7 +177,7 @@ function constructMoreMenu() {
     </div>
     
     <div id="more-menu-main">
-      <button id="save-to-disk">Save Project to Disk</button>
+      <button id="save-to-disk">Save Project to Device</button>
       <button id="export-story">Export Story</button>
     </div>
   `
@@ -310,6 +312,13 @@ function downloadProjectSaveFile() {
   } catch(e) {
     notify("Failed downloading file.", "error")
     return
+  }
+  if (isChromeMobile()) {
+    setTimeout(() => {
+      const info = `Hint: if Chrome mobile shows an annoying notification, try
+      closing it by <b>tapping on it and swiping up</b>.`
+      notify(info, "notification", 7000)
+    }, 2000)
   }
 }
 
