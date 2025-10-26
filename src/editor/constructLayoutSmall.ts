@@ -30,7 +30,7 @@ function constructIt() {
       <div id="error-displayer"></div>
 
       <div>
-        <button id="more-menu-button">☰</button>
+        <button id="more-menu-button" class="hamclose">☰</button>
       </div>
     </div>
     

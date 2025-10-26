@@ -167,13 +167,9 @@ function initMoreMenu() {
 function constructMoreMenu() {
   const el = document.createElement("div")
   el.id = "more-menu"
-  /* if we use ✖ for close-more-menu it will be confused with our
-    close button to exit fullscreen for itch.io
-  */
-
   el.innerHTML = `
     <div id="more-menu-top">
-      <button id="close-more-menu">☰</button>
+      <button id="close-more-menu" class="hamclose">✖</button>
     </div>
     
     <div id="more-menu-main">

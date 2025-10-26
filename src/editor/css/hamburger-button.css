@@ -1,0 +1,26 @@
+
+.hamclose {
+  /* 
+    Used for both menu button and menu close button.
+    They are different buttons but they are supposed to
+    look similar.
+  */
+  width: calc(var(--sm_top-height) - 0px);
+  height: calc(var(--sm_top-height) - 0px);
+  border: none;
+  padding: 0;
+  background: #fff;
+  color: #000;
+}
+
+#more-menu-button {
+
+}
+
+
+#close-more-menu {
+  background: rgb(240, 240, 240);
+  padding-left: 2px;
+  padding-bottom: 2px;
+}
+

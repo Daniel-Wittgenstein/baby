@@ -42,12 +42,6 @@ body {
 }
 
 
-#close-more-menu {
-  width: calc(var(--sm_top-height) - 0px);
-  height: calc(var(--sm_top-height) - 0px);
-}
-
-
 #more-menu-top {
   display: flex;
   flex-direction: row;
