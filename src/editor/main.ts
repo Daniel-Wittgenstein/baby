@@ -311,7 +311,6 @@ function downloadProjectSaveFile() {
     notify("Failed downloading file.", "error")
     return
   }
-  notify("Downloaded save file.")
 }
 
 
