@@ -44,7 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (isSmallScreen()) {
     constructLayoutSmall()
   } else {
-    throw new Error(`Big layout not supported yet. Make your viewport smaller.`)
+    console.warn(`Big screen, but big layout is not supported yet. Defaulting to small layout for now.`)
+    constructLayoutSmall()
   }
 
   constructMoreMenu()
