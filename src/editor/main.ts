@@ -79,15 +79,18 @@ document.addEventListener("DOMContentLoaded", () => {
   updatePreview()
 
 
-  return
-
-
   document.getElementById("save")?.addEventListener("click", () => {
     autoIndent() //yes, we enforce this
-    downloadProjectSaveFile()
-    saveProjectToLocalStorage() // additionally save to local storage: so
-      // local storage is up to date
+    saveProjectToLocalStorage()
+    notify("Saved to browser local storage!")
   })
+
+
+  document.getElementById("save-to-disk")?.addEventListener("click", () => {
+    downloadProjectSaveFile()
+  })
+
+  return
 
   document.getElementById("load")?.addEventListener("click", () => {
     loadProjectFromFile()
@@ -172,7 +175,8 @@ function constructMoreMenu() {
     </div>
     
     <div id="more-menu-main">
-    
+      <button id="save-to-disk">Save Project to Disk</button>
+      <button id="export-story">Export Story</button>
     </div>
   `
   document.body.append(el)

@@ -62,3 +62,13 @@
 }
 
 
+#sm_top-button-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+
+#sm_top-button-wrapper button {
+  margin-right: 2px;
+}
+
