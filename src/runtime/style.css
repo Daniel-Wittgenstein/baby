@@ -174,11 +174,17 @@ body {
   color: var(--text);
   display: none;
   flex-direction: column;
+  animation: slideInRight 0.5s forwards;
+}
+
+
+.menu-out {
+  animation: slideOutLeft 0.5s forwards;
 }
 
 
 .menu button {
-  margin-top: 24px;
+  margin-top: 32px;
   font-size: 18px;
 }
 

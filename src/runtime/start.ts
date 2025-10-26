@@ -108,11 +108,24 @@ function toggleAnims() {
 
 
 function toggleMenu() {
+  const cssClass = "menu-out"
   menuOpen = !menuOpen
   if (menuOpen) {
     menu.style.display = "flex"
+    menu.classList.remove(cssClass)
   } else {
-    menu.style.display = "none"
+    if (animations === false) {
+      menu.style.display = "none"
+      menu.classList.remove(cssClass)
+      return
+    }
+
+    menu.classList.add(cssClass)
+    menu.addEventListener("transitionend", () => {
+      if (menu.classList.contains(cssClass)) {
+        menu.style.display = "none"
+      }
+    }, { once: true })
   }
 }
 
