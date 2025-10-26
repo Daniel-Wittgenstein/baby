@@ -92,18 +92,23 @@ document.addEventListener("DOMContentLoaded", () => {
     downloadProjectSaveFile()
   })
 
+
+  document.getElementById("export-story")?.addEventListener("click", () => {
+    exportStory()
+    if (isChromeMobile()) {
+      setTimeout(() => {
+        const info = `Hint: If Chrome mobile asks you whether you want to keep the file, click <b>Keep</b>.`
+        notify(info, "notification", 7000)
+      }, 2000)
+    }
+  })
+
+
   return
 
   document.getElementById("load")?.addEventListener("click", () => {
     loadProjectFromFile()
   })
-
-  //setInterval(saveProjectToLocalStorage, 3000)
-
-  document.getElementById("export")?.addEventListener("click", () => {
-    exportStory()
-  })
-
 
   document.getElementById("about")?.addEventListener("click", () => {
     notify("baby.txt")
@@ -481,7 +486,6 @@ function exportStory() {
     notify("Failed exporting.", "error")
     return
   }
-  notify("Downloaded exported story.")
 }
 
 
