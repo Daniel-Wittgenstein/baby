@@ -1,0 +1,23 @@
+
+.notification {
+  background: #bdecb1;
+  color: #000;
+  padding: 8px;
+  z-index: 9000;
+  position: absolute;
+  bottom: 0px; /* If you position it at the top, mobile Chrome will mess
+    up the positioning sometimes when the mobiel keyboard opens/closes, so don't do that.
+    It's Chrome's and Safari's fault, because they intentionally
+    break position: absolute and position: fixed on mobile.
+    */
+  left: 0px;
+  border: 2px solid #6fff10;
+  border-radius: 4px;
+}
+
+.error-notification {
+  background: #fcdfd7 !important;
+  color: #000 !important;
+  border: 2px solid red;
+  z-index: 9000;
+}
