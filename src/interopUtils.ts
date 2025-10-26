@@ -10,8 +10,8 @@
   Any function that is generic enough can go here.
 */
 
-export function downloadFile(content: string, fileName: string) {
-  const blob = new Blob([content], { type: "text/html" })
+export function downloadFile(content: string, fileName: string, type: string) {
+  const blob = new Blob([content], { type })
   const a = document.createElement("a")
   a.href = URL.createObjectURL(blob)
   a.download = fileName

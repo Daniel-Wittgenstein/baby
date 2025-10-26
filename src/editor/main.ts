@@ -309,7 +309,8 @@ function downloadProjectSaveFile() {
   const state = getProjectState()
   try {
     const json = JSON.stringify(state)
-    downloadFile(json, "project-save-file.json")
+    // use .json as file ending, otherwise inconsistent handling by browsers
+    downloadFile(json, "project-save-file.json", "application/json")
   } catch(e) {
     notify("Failed downloading file.", "error")
     return
@@ -481,7 +482,7 @@ function updatePreview() {
 function exportStory() {
   try {
     const html = generateHtmlPage(true)
-    downloadFile(html, "index.html")
+    downloadFile(html, "index.html", "text/html")
   } catch(e) {
     notify("Failed exporting.", "error")
     return
