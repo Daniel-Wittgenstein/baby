@@ -21,13 +21,14 @@ export function constructLayoutSmall() {
 function constructIt() {
   const html = `
     <div id="sm_top">
+      
+      <div id="error-displayer"></div>
+
       <div id="sm_top-button-wrapper">
         <button id="sm_play">Play</button>
         <button id="sm_edit">Edit</button>
         <button id="save">Save</button>
       </div>
-
-      <div id="error-displayer"></div>
 
       <div>
         <button id="more-menu-button" class="hamclose">☰</button>

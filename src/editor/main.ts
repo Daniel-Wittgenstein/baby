@@ -264,12 +264,15 @@ function onStoryError(text: string, line: Line) {
   document.getElementById("error-displayer").innerHTML = 
     text + `<button class="goto-error" 
     data-index="${line.orgCodeLineNo}">GO TO ERROR</button>`
+  
+  document.getElementById("error-displayer").style.display = "flex"
 }
 
 
 function clearErrors() {
   codeJarClearErrors()
   document.getElementById("error-displayer").innerText = ""
+  document.getElementById("error-displayer").style.display = "none"
 }
 
 

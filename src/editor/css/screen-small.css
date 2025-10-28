@@ -33,7 +33,7 @@
 }
 
 
-#sm_top button {
+#sm_top button:not(.goto-error) {
   width: calc(var(--sm_top-height) - 2px);
   height: calc(var(--sm_top-height) - 2px);
   background: #fff;
@@ -72,4 +72,20 @@
   margin-right: 2px;
 }
 
+
+#error-displayer {
+  display: flex;
+  border: 2px solid #d00;
+  position: absolute;
+  background: #fff;
+  color: #000;
+  padding-right: 20px;
+  max-width: 80vw;
+  min-height: var(--sm_top-height);
+}
+
+
+.goto-error {
+  border: 2px solid black !important;
+}
 
