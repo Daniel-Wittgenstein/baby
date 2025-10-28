@@ -10,3 +10,7 @@
 .if-else-end { color: rgb(19, 58, 185); font-weight: bold; }
 
 .label { color: rgb(0, 0, 0); font-weight: bold; }
+
+.error-line {background-color: #f3dddd; border: 1px solid red;}
+
+.error-line::after { content: " ⚠️"; }
