@@ -90,13 +90,18 @@ export function compileAndRun(
     }
 
     const filteredChoices = currentChoices.filter(
-      ch => ch.text.toLowerCase().includes(clickOnText.toLowerCase()))
+      ch => ch.text.includes(clickOnText))
 
-    if (filteredChoices.length === 1) {
+    if (filteredChoices.length !== 1) {
       throw new Error(`${filteredChoices.length} choices matched text "${clickOnText}"`)
     }
 
     const selectedChoice = filteredChoices[0]
+
+    if (!selectedChoice.choiceIndex && selectedChoice.choiceIndex !== 0) {
+      console.log("SELECTED CHOICE", selectedChoice)
+      throw new Error(`Choice index is ${selectedChoice.choiceIndex}.`)
+    }
 
     runner.chooseChoice(selectedChoice.choiceIndex)
 
