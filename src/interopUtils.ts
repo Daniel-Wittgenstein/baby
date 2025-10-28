@@ -5,7 +5,7 @@
   If a function is here, but is currently not actually used by the runtime,
   do NOT bother moving it to another module. Vite should tree-shake it anyway,
   so unused functions shouldn't end up in the final injected runtime data.
-  Also, even if Vite should fail at removing it, it"s not worth the hassle.
+  Also, even if Vite should fail at removing it, it's not worth the hassle.
   
   Any function that is generic enough can go here.
 */
