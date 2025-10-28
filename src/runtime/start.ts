@@ -1,5 +1,4 @@
 
-import { Line } from "../interopTypes"
 import { loadUserSettings } from "./loadUserSettings"
 
 import { Runner } from "./runner"
