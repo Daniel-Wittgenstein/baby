@@ -395,7 +395,7 @@ function onCheckIfCond(left: string, operator: string, right: string) {
   if (operator === ">=") return leftE >= rightE
   if (operator === "<=") return leftE <= rightE
   if (operator === "!=" || operator === "<>") return leftE !== rightE
-  throw new Error(`Invaid operator. Should not happen.`)
+  throw new Error(`Invalid operator. Should not happen.`)
 }
 
 function varGetValue(varName: string) {
