@@ -43,9 +43,45 @@ The story ends here.
 test("basic flow", () => {
   expect(() => compileAndRun(
     BASIC_STORY, {
+      clickOn: ["Go back home."],
+      textAppears: ["No such text in story therefore we expect the test code to throw an error."],
+      textDoesNotAppear: [""],
+    }
+  )).toThrowError()
+})
+
+
+
+test("basic flow", () => {
+  expect(() => compileAndRun(
+    BASIC_STORY, {
+      clickOn: ["Go back home."],
+      textAppears: ["In fact, this was the best decision.", "The story ends here."],
+      textDoesNotAppear: ["You go right and die."],
+    }
+  )).not.toThrowError()
+})
+
+
+
+test("basic flow", () => {
+  expect(() => compileAndRun(
+    BASIC_STORY, {
       clickOn: ["Go right."],
       textAppears: ["You go right and die."],
       textDoesNotAppear: [],
+    }
+  )).not.toThrowError()
+})
+
+
+
+test("basic flow", () => {
+  expect(() => compileAndRun(
+    BASIC_STORY, {
+      clickOn: ["Go left."],
+      textAppears: ["You go left and die.", "The story ends here."],
+      textDoesNotAppear: ["In fact, this was the best decision."],
     }
   )).not.toThrowError()
 })
@@ -71,5 +107,4 @@ test("basic code that should throw compiler error", () => {
     }
   )).toThrowError()
 })
-
 
