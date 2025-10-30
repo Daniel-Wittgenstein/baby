@@ -18,6 +18,9 @@ title: Untitled Story
 # Your name:
 author: Anonymous
 
+# Start with this theme: light/dark
+theme: light
+
 # Accent color. Allowed values:
 # red, blue, green, pink or monochrome
 color: monochrome

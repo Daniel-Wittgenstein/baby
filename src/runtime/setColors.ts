@@ -61,34 +61,36 @@ let currentTheme: Theme = Theme.Light
 
 
 function prefersDarkMode() {
-  return window.matchMedia("(prefers-color-scheme: dark)")
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
 }
 
 
 function prefersLightMode() {
-  return window.matchMedia("(prefers-color-scheme: light)")
+  return window.matchMedia("(prefers-color-scheme: light)").matches
 }
 
 
 function decideTheme(authorSetTheme: string, userSettingsTheme: string) {
+
   if (userSettingsTheme &&
     (userSettingsTheme === Theme.Light || userSettingsTheme === Theme.Dark)) {
       // game has already been played in this browser: set last theme setting:
       return userSettingsTheme
   }
 
-  // game hasn't been played, yet, so check if the user
-  // has any preferences:
+  // use author preference, if it exists:
+  if (authorSetTheme && authorSetTheme.toLowerCase() === "light") return Theme.Light
+  if (authorSetTheme && authorSetTheme.toLowerCase() === "dark") return Theme.Dark
+
+  // Otherwise, check if the browser has any preferences set.
+  // This is not 100% reliable, for example the iframe might report light mode
+  // but the editor might report dark mode, which is frankly insane.
+  // In general, it's better if story authors add a preference.
+
   if (prefersLightMode()) return Theme.Light
-  
   if (prefersDarkMode()) return Theme.Dark
 
-  // apparently, the user doesn't really care, so use author preference,
-  // if they exist:
-  if (authorSetTheme === Theme.Light) return Theme.Light
-  if (authorSetTheme === Theme.Dark) return Theme.Dark
-  
-  // if there isn't even an author preference:
+  // or just use light mode:
   return Theme.Light
 }
 

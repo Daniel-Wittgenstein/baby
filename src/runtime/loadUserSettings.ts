@@ -4,11 +4,9 @@ import { Theme } from "./setColors"
 const USER_SETTINGS_KEY = "user-settings"
 
 type Settings = {
-  theme: Theme,
 }
 
 const DEFAULT_SETTINGS = {
-  theme: Theme.Light,
 }
 
 
