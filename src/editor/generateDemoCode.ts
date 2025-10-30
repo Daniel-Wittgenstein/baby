@@ -22,13 +22,7 @@ author: Anonymous
 # red, blue, green, pink or monochrome
 color: monochrome
 
-# If you want, you can set this to:
-# debugfast: yes
-# If yes, there will be no
-# animations while
-# the story is being developed.
-# This makes testing things faster. The final
-# exported story will still have animations.
+# Turn off animations while testing? yes/no
 debugfast: no
 
 ###story###
