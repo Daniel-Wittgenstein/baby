@@ -180,7 +180,7 @@ function initClickHandler() {
 
 
 function endTheStory() {
-  console.log("Story ended: todo")
+  console.log("Story ended.")
 }
 
 function clickOnChoice(index: number, choiceButton: HTMLButtonElement) {
@@ -425,11 +425,17 @@ function isFiniteNumber(value: string): boolean {
 }
 
 
-function dispatchCommand(action: Action) {
+function dispatchCommand(action: Action) : ActionType | null {
+
   if (arithmeticCommands[action.commandName]) {
     dispatchArithmetic(action, arithmeticCommands[action.commandName])
     return
   }
+
+  if (action.commandName === "quit") {
+    return ActionType.EndOfStory
+  }
+
 }
 
 
@@ -464,7 +470,11 @@ function callRunnerUntilNoMoreContent() {
     }
 
     if (action.type === ActionType.Command) {
-      dispatchCommand(action)
+      const result = dispatchCommand(action)
+      if (result === ActionType.EndOfStory) {
+        endTheStory()
+        break
+      }
       continue
     }
 

@@ -36,7 +36,8 @@ export enum ActionType {
     // and the caller can do whatever with it.
   Nothing = "Nothing", // command was already handled by the Runner. nothing to do
   EndOfTurn = "EndOfTurn",
-  StoryFlowRunsOut = "StoryFlowRunsOut"
+  StoryFlowRunsOut = "StoryFlowRunsOut",
+  EndOfStory = "EndOfStory",
 }
 
 export type Action = {

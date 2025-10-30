@@ -27,6 +27,19 @@ export function extractLabelAndCommandInfo(storyLines: Line[]) {
       return true
     }
 
+    if (name === "end") {
+      userError(`".end" is not a thing. Either use "end" to close an if block or `
+        + `use ".quit" if you want to quit the story.`, orgNo)
+      return true // yes, return true here!
+    }
+
+    if (name === "quit") {
+      if (text.trim()) {
+        userError(`I did not expect additional text on a "quit" command line.`, orgNo)
+      }
+      return true
+    }
+
     if (arithmeticCommands[name]) {
       return true
     }
