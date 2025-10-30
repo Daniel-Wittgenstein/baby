@@ -59,13 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initCodeEditor()
 
+  ;(window as any).$_onErrorFromIFrame = $_onErrorFromIFrame
+
   initHandlersForSmallScreenView()
 
   iframe = document.getElementById("iframe-preview")
 
   initGotoErrorButtons()
 
-  compilerSetOnError(onStoryError)
+  compilerSetOnError(onCompilerError)
 
   runtimeData = (window as any).$__$runtimeData
   if (!runtimeData) {
@@ -115,6 +117,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 })
+
+function $_onErrorFromIFrame(text: string, lineNo: number) {
+  onStoryError(text, lineNo)
+}
 
 
 function initHandlersForSmallScreenView() {
@@ -259,11 +265,16 @@ function codeJarClearErrors() {
 }
 
 
-function onStoryError(text: string, line: Line) {
-  codeJarAddError(line.orgCodeLineNo, text)
+function onCompilerError(text: string, line: Line) {
+  onStoryError(text, line.orgCodeLineNo)
+}
+
+
+function onStoryError(text: string, lineNo: number) {
+  codeJarAddError(lineNo, text)
   document.getElementById("error-displayer").innerHTML = 
     text + `<button class="goto-error" 
-    data-index="${line.orgCodeLineNo}">GO TO ERROR</button>`
+    data-index="${lineNo}">GO TO ERROR</button>`
   
   document.getElementById("error-displayer").style.display = "flex"
 }
