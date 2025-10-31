@@ -45,9 +45,11 @@ let menuOpen = false
 
 let menu: HTMLElement
 
-let storyState = {
-  varMap: {},
+type StoryState = {
+  varMap: Record<string, any>
 }
+
+let storyState: StoryState
 
 function initTopBar() {
   const topBar = document.getElementById("top-box")
@@ -92,7 +94,8 @@ function requestRestart() {
 
 
 function actuallyRestart() {
-
+  toggleMenu()
+  restartStoryFromScratch()
 }
 
 
@@ -159,11 +162,17 @@ function startApp() {
 
   scheduler = new Scheduler(50)
 
-  runner.restartStory()
+  restartStoryFromScratch()
 
-  takeTurn(null, true)
 }
 
+
+function restartStoryFromScratch() {
+  main.innerHTML = ""
+  resetStoryState()
+  runner.restartStory()
+  takeTurn(null, true)
+}
 
 
 function initClickHandler() {
@@ -396,6 +405,14 @@ function onCheckIfCond(left: string, operator: string, right: string) {
   if (operator === "!=" || operator === "<>") return leftE !== rightE
   throw new Error(`Invalid operator. Should not happen.`)
 }
+
+
+function resetStoryState() {
+  storyState = {
+    varMap: {},
+  }
+}
+
 
 function varGetValue(varName: string) {
   varName = varName.toLowerCase()

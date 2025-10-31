@@ -34,11 +34,12 @@ export function customConfirm(
     modal.classList.remove('show')
     overlay.classList.add('hide')
     modal.classList.add('hide')
+    callback()
+    
     setTimeout(() => {
       if (document.body.contains(overlay)) {
         document.body.removeChild(overlay)
       }
-      callback()
     }, 300)
   }
 
