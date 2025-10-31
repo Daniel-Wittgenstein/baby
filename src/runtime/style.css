@@ -189,6 +189,11 @@ body {
 }
 
 
+.menu button:hover {
+  color: var(--accent);
+}
+
+
 body.dark .menu-button {
   filter: invert(1);
 }
