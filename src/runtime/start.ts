@@ -51,6 +51,8 @@ type StoryState = {
 
 let storyState: StoryState
 
+let hamburgerImg
+
 function initTopBar() {
   const topBar = document.getElementById("top-box")
   const button = document.createElement("button")
@@ -58,6 +60,7 @@ function initTopBar() {
   button.classList.add("menu-button")
   img.alt = "menu"
   img.src = icons.hamburger
+  hamburgerImg = img
   button.append(img)
   topBar.append(button)
   button.addEventListener("click", toggleMenu)
@@ -108,14 +111,22 @@ function toggleAnims() {
   }
 }
 
+function setHamburgerMenuImg(iconImg) {
+  hamburgerImg.src = iconImg
+}
+
 
 function toggleMenu() {
   const cssClass = "menu-out"
   menuOpen = !menuOpen
   if (menuOpen) {
+    setHamburgerMenuImg(icons.close)
     menu.style.display = "flex"
     menu.classList.remove(cssClass)
+
   } else {
+
+    setHamburgerMenuImg(icons.hamburger)
     if (animations === false) {
       menu.style.display = "none"
       menu.classList.remove(cssClass)
