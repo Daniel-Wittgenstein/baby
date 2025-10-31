@@ -84,6 +84,11 @@ body {
 }
 
 
+.choice-wrapper-first {
+  margin-top: 36px;
+}
+
+
 .choice {
   animation: slideInRight 0.5s forwards;
   border: 4px solid var(--text);

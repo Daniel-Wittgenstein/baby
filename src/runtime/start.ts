@@ -220,6 +220,11 @@ function dispatchText(el: AbstractRenderEl) {
 function dispatchChoice(el: AbstractRenderEl) {
   const choice = el as AbstractRenderChoice
   const buttonPar = document.createElement('p')
+  buttonPar.classList.add("choice-wrapper")
+  if (choice.index === 0) {
+    // because CSS is garbage and screw CSS selectors:
+    buttonPar.classList.add("choice-wrapper-first")
+  }
   buttonPar.innerHTML = `
       <button data-index="${choice.index}"
         class="choice"
