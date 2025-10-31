@@ -244,12 +244,28 @@ function compileToLines(code: string, offset: number) : Line[] {
 
   addOrgCodeLineNo(lines, offset)
   addChoiceGatherInfo(lines)
+  rejectAdjacentChoices(lines)
   addLevelInfo(lines)
   markDeadEnds(lines)
   connectDeadEndsWithGathers(lines)
   connectChoicesWithEachOther(lines)
   processIfLines(lines)
   return lines
+}
+
+
+function rejectAdjacentChoices(lines: Line[]) {
+  let lastChoiceIndex = -1000
+  let i = -1
+  for (const line of lines) {
+    i++
+    if (line.type === LineType.Choice) {
+      if (lastChoiceIndex === i - 1) {
+        userCompilerError(`Put at least one empty line between choices.`, line)
+      }
+      lastChoiceIndex = i
+    }
+  }
 }
 
 

@@ -108,3 +108,18 @@ test("basic code that should throw compiler error", () => {
   )).toThrowError()
 })
 
+
+
+test("should reject two choices on consecutive lines", () => {
+  expect(() => compileAndRun(
+    `
+      . abc
+      . xyz
+    `, {
+      clickOn: [],
+      textAppears: [],
+      textDoesNotAppear: [],
+    }
+  )).toThrowError()
+})
+
