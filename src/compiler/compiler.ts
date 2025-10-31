@@ -180,7 +180,7 @@ function connectChoicesWithEachOther(lines : Line[]) {
           break
         }
         const _ = stack.pop()
-        console.log("§GUKESH REMOVE FROM STACK", _)
+        console.log("REMOVE FROM STACK", _)
       }
 
       // if a previous choice with the same level as this choice
