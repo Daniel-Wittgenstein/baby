@@ -7,7 +7,7 @@ button {
   -moz-appearance: none;
   appearance: none;
   opacity: 1;
-  cursor: default;
+  cursor: pointer;
   color: inherit;
   background: inherit;
   border: inherit;
