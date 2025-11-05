@@ -514,9 +514,17 @@ function execCustomInstructions(instructions: Instruction[],
   for (const instr of instructions) {
     console.log("perform instruction:", instr)
     const action = instr.action
+    
     if (action === "js") {
       instr?.run()
+      
+    } else if (action === "text") {
+      addEl({
+        type: AbstractRenderElType.Text,
+        text: instr.text,
+      })
     }
+
   }
 }
 

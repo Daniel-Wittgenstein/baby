@@ -43,6 +43,7 @@ $_onStartApp = (baby) => {
             // is encountered. We log 
             // the text of the line to the browser console:
             { action: "js", run: () => {console.log(text)} },
+
           ]
         }
       },
