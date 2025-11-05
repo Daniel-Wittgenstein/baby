@@ -9,6 +9,7 @@ import { Scheduler } from "./scheduler"
 
 import { customConfirm } from "./confirm"
 
+import { getRndInt } from "./randomFuncs"
 
 import i18n from "./i18n"
 
@@ -209,6 +210,9 @@ function createBabyApi() {
   const baby = {
     name: "Baby API",
     command: createCommand,
+    set: varSetValue,
+    get: varGetValue,
+    roll: getRndInt,
   }
   return baby
 }
