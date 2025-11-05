@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
-  selectTab("sm_js") // testing
+  //// selectTab("sm_js") // testing
 
 })
 
@@ -519,6 +519,8 @@ function loadProjectFromLocalStorage() {
 type ProjectState = {
   name: string,
   code: string,
+  js: string,
+  css: string,
   magicKey: typeof MAGIC_PROJECT_SAVE_STATE_KEY,
 }
 
@@ -533,14 +535,20 @@ function isProjectState(obj: any) {
 
 function setProjectState(state: ProjectState) {
   codeJarSet(state.code)
+  codeJarJs.updateCode(state.js)
+  codeJarCss.updateCode(state.css)
 }
 
 
 function getProjectState(): ProjectState {
   const code = codeJarGet()
+  const js = codeJarJs.toString()
+  const css = codeJarCss.toString()
   return {
     name: currentProjectName,
     code,
+    js,
+    css,
     magicKey: MAGIC_PROJECT_SAVE_STATE_KEY,
   }
 }
