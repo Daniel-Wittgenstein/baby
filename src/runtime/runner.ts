@@ -62,7 +62,6 @@ export class Runner {
     }
 
     const {action,  nextLine, customInstructions} = this.#execLine(this.#linePointer)
-    console.log("dafuq", action , customInstructions)
     this.#linePointer = nextLine
     if (customInstructions) {
       action.customInstructions = customInstructions
@@ -197,7 +196,6 @@ export class Runner {
 
     if (this.#commandTable[line.index]) {
       const res = this.#execCommand(this.#commandTable[line.index], line.index, line)
-      console.log("MERDA????", res)
       return res
     }
 
