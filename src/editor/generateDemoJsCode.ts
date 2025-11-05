@@ -104,8 +104,11 @@ $_onStartApp = (baby) => {
   
   // .set health 100
   // .set fear = 0
+
   // .chance 50% - Heads! - Tails!
+
   // .chance 75% - You jump over the fence! - You hurt yourself while trying to jump! - health - minus 20
+  
   // .chance 66% - You open the box. It's empty. - You open the box and see a huge spider inside. - fear - plus 10
   
   // The percentage gives the likelihood of succeeding.
@@ -162,19 +165,17 @@ $_onStartApp = (baby) => {
           // if it was specified, do this:
           
           if (!changeString) {
-            return "Exepcted 5th parameter"
+            return "Expected 5th parameter"
           }
 
           const originalValue = baby.get(varName)
           if (changeString.startsWith("minus")) {
             changeString = changeString.replace("minus", "").trim()
-            console.log(222, changeString)
             const num = Number(changeString)
             func = () => baby.set(varName, originalValue - num)
 
           } else {
             changeString = changeString.replace("plus", "").trim()
-            console.log(222, changeString)
             const num = Number(changeString)
             func = () => baby.set(varName, originalValue + num)
 
