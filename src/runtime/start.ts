@@ -514,8 +514,8 @@ function execCustomInstructions(instructions: Instruction[],
   for (const instr of instructions) {
     console.log("perform instruction:", instr)
     const action = instr.action
-    if (action === "log") {
-      console.log()
+    if (action === "js") {
+      instr?.run()
     }
   }
 }

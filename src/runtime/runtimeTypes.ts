@@ -58,6 +58,9 @@ export type Action = {
 }
 
 
-export type Instruction = {
-  action: string,
-}
+export type Instruction =
+  {
+    action: "js",
+    run: () => void,
+  }
+
