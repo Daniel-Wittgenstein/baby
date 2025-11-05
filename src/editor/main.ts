@@ -43,7 +43,7 @@ let smallMode = false
 
 let currentProjectName: string = ""
 
-let codeJar
+let codeJar, codeJarJs, codeJarCss
 
 let leftPane: any
 let rightPane: any
@@ -286,6 +286,14 @@ console.log("baby.txt!")
 
 
   `)
+
+  codeJarJs = codeJar
+
+  const debounced = debounce(updatePreview, PREVIEW_DELAY)
+  codeJar.onUpdate(() => {
+    debounced()
+  })
+
 }
 
 function initCssEditor() {
@@ -304,11 +312,18 @@ function initCssEditor() {
 /* CUSTOM CSS GOES HERE: */
 
 body {
-  background: red !important;
+  /* ... */
 }
 
 
   `)
+
+  codeJarCss = codeJar
+
+  const debounced = debounce(updatePreview, PREVIEW_DELAY)
+  codeJar.onUpdate(() => {
+    debounced()
+  })
 }
 
 
@@ -647,12 +662,17 @@ function generateHtmlPage(exported: boolean = false) {
 
   const ifIdLine = kompilat.metaData.ifid ? `<meta property="ifiction:ifid" content="${kompilat.metaData.ifid}">` : ""
 
+  const customAuthorCss = codeJarCss.toString() 
+
+  const customAuthorJs = codeJarJs.toString()
+
   let html: string = runtimeData.files["index.html"]
   html = html.replace("</body>",
     `
       <script>${exportedCode}</script>
       <script>window.$__$story = ${JSON.stringify(story)};</script>
       <script>${runtimeData.code}</script>
+      <script>${customAuthorJs}</script>
       </body>
     `).replace("</head>", 
     `
@@ -660,6 +680,8 @@ function generateHtmlPage(exported: boolean = false) {
       <style>${runtimeData.files["confirm.css"]}</style>
       <style>${runtimeData.files["animation-killer.css"]}</style>
       <style>${runtimeData.files["style.css"]}</style>
+
+      <style>${customAuthorCss}</style>
       </head>
     `).replace("<head>", 
     `
