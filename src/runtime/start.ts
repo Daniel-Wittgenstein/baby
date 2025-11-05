@@ -173,8 +173,26 @@ function startApp() {
 
   scheduler = new Scheduler(50)
 
+  const babyApi = createBabyApi()
+
+  if ((window as any).$_onStartApp) {
+    // optional custom hook for story author:
+    // run this function at app start
+    if (typeof (window as any).$_onStartApp === "function") {
+      ;(window as any).$_onStartApp(babyApi)
+    }
+  }
+
   restartStoryFromScratch()
 
+}
+
+
+function createBabyApi() {
+  const baby = {
+    name: "Baby API",
+  }
+  return baby
 }
 
 
