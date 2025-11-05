@@ -11,6 +11,8 @@ import { hasLabelStartText } from "./hasLabelStartText"
 
 import { arithmeticCommands } from "./arithmetic"
 
+import { splitCommandTextIntoParts } from "./splitCommandsIntoParts"
+
 import { CustomCommand } from "./runtimeTypes"
 
 export function extractLabelAndCommandInfo(storyLines: Line[],
@@ -57,7 +59,7 @@ export function extractLabelAndCommandInfo(storyLines: Line[],
 
     //call onStart function:
 
-    const parts = text.split(/\s-\s/).map(n => n.trim()).filter(Boolean)
+    const parts = splitCommandTextIntoParts(text)
     const result = customCommand.onStart(parts, text, name)
 
     if (typeof result === "string") {

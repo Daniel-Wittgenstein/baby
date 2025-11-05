@@ -8,6 +8,8 @@ import { getFirstWordAndRest, removeFirstChar } from "./utils"
 
 import { CustomCommand } from "./runtimeTypes"
 
+import { splitCommandTextIntoParts } from "./splitCommandsIntoParts"
+
 import { Instruction } from "./runtimeTypes"
 
 type ExecLineResult = {
@@ -104,7 +106,7 @@ export class Runner {
 
     if (customCommand?.onExec) {
     
-      const parts = command.text.split(/\s-\s/).map(n => n.trim()).filter(Boolean)
+      const parts = splitCommandTextIntoParts(command.text)
       const result = customCommand.onExec(parts, command.text, command.name)
 
       let nextLine = index + 1
