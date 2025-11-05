@@ -126,31 +126,42 @@ function $_onErrorFromIFrame(text: string, lineNo: number) {
 function initHandlersForSmallScreenView() {
   const buttonPlay = document.getElementById("sm_play")
   const buttonEdit = document.getElementById("sm_write")
+  const buttonHelp = document.getElementById("sm_help")
+  const buttonCss = document.getElementById("sm_css")
+  const buttonJs = document.getElementById("sm_js")
   // buttons do not exist, so we are not in small view and they do
   // not matter, so just return:
   if (!buttonPlay) return
   buttonPlay.addEventListener("click", switchToPlayView)
   buttonEdit.addEventListener("click", switchToEditView)
+  buttonHelp.addEventListener("click", switchToHelpView)
+  buttonCss.addEventListener("click", switchToCssView)
+  buttonJs.addEventListener("click", switchToJsView)
   switchToEditView()
 }
 
 
+function switchToHelpView() {
+  selectTab("sm_help")
+}
+
+
+function switchToCssView() {
+  selectTab("sm_css")
+}
+
+
+function switchToJsView() {
+  selectTab("sm_js")
+}
+
+
 function switchToPlayView() {
-  const buttonPlay = document.getElementById("sm_play")
-  const buttonEdit = document.getElementById("sm_write")
-  const code = document.getElementById("sm_code-wrapper")
-  const play = document.getElementById("sm_play-wrapper")
-  code.style.display = "none"
-  play.style.display = "block"
   selectTab("sm_play")
 }
 
 
 function switchToEditView() {
-  const code = document.getElementById("sm_code-wrapper")
-  const play = document.getElementById("sm_play-wrapper")
-  code.style.display = "block"
-  play.style.display = "none"
   selectTab("sm_write")
 }
 
@@ -158,7 +169,14 @@ function selectTab(id: string) {
   const el = document.getElementById(id)
   document.querySelectorAll(".tab").forEach(el => el.classList.remove("tab-selected"))
   el.classList.add("tab-selected")
+
+  document.querySelectorAll(".sm_tab-area").forEach(
+    el => (el as HTMLElement).style.display = "none")
+
+  const acc = ".sm_tab-area-" + id.replace("sm_", "")
+  ;(document.querySelector(acc) as HTMLElement).style.display = "block"
 }
+
 
 function initMoreMenu() {
   moreMenu = document.getElementById("more-menu")

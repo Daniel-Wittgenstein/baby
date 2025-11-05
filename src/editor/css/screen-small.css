@@ -52,16 +52,6 @@
 }
 
 
-#sm_code-wrapper {
-  display: none;
-}
-
-
-#sm_play-wrapper {
-  display: none;
-}
-
-
 #sm_top-button-wrapper {
   display: flex;
   flex-direction: row;

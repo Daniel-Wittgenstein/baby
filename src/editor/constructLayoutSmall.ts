@@ -41,7 +41,7 @@ function constructIt() {
     
     <div id="sm_main">
 
-      <div id="sm_code-wrapper">
+      <div id="sm_code-wrapper" class="sm_tab-area sm_tab-area-write">
 
         <div id="code-editor"
           contenteditable="true" autocapitalize="off"
@@ -50,9 +50,27 @@ function constructIt() {
 
       </div>
       
-      <div id="sm_play-wrapper">
+      <div class="sm_tab-area sm_tab-area-play">
         <iframe id="iframe-preview"></iframe>
       </div>
+      
+      <div class="sm_tab-area sm_tab-area-play">
+        <iframe id="iframe-preview"></iframe>
+      </div>
+      
+      <div class="sm_tab-area sm_tab-area-help">
+        Help
+      </div>
+
+      <div class="sm_tab-area sm_tab-area-css">
+        CSS
+      </div>
+
+      <div class="sm_tab-area sm_tab-area-js">
+        JS
+      </div>
+
+
 
     </div>
   `
