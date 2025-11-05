@@ -517,7 +517,7 @@ function execCustomInstructions(instructions: Instruction[],
     
     if (action === "js") {
       instr?.run()
-      
+
     } else if (action === "text") {
       addEl({
         type: AbstractRenderElType.Text,
@@ -564,7 +564,7 @@ function callRunnerUntilNoMoreContent() {
 
       if (action.customInstructions) {
         execCustomInstructions(action.customInstructions, addEl)
-        break
+        continue
       }
 
       const result = dispatchCommand(action)
