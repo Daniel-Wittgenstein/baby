@@ -54,7 +54,7 @@ export function extractLabelAndCommandInfo(storyLines: Line[],
       userError(`command with name "${name}" does not exist.`, orgNo)
     }
 
-    if (!customCommand.onStart) return // no onStart function: no check, consider
+    if (!customCommand?.onStart) return // no onStart function: no check, consider
       // command valid
 
     //call onStart function:
