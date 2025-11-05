@@ -505,17 +505,19 @@ function dispatchCommand(action: Action) : ActionType | null {
     return ActionType.EndOfStory
   }
 
-  if (action.customInstructions) {
-    execCustomInstructions(action.customInstructions)
-    return ActionType.Nothing
-  }
-
 }
 
 
-function execCustomInstructions(instructions: Instruction[]) {
-  console.log("custom command generated these custom instructions:", instructions)
-  
+function execCustomInstructions(instructions: Instruction[], 
+    addEl: (el: AbstractRenderEl) => void) {
+
+  for (const instr of instructions) {
+    console.log("perform instruction:", instr)
+    const action = instr.action
+    if (action === "log") {
+      console.log()
+    }
+  }
 }
 
 
@@ -551,6 +553,12 @@ function callRunnerUntilNoMoreContent() {
     }
 
     if (action.type === ActionType.Command) {
+
+      if (action.customInstructions) {
+        execCustomInstructions(action.customInstructions, addEl)
+        break
+      }
+
       const result = dispatchCommand(action)
       if (result === ActionType.EndOfStory) {
         endTheStory()

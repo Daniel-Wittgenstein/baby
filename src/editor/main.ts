@@ -3,6 +3,8 @@ import { isSmallScreen } from "./environmentDetection"
 
 import { MAGIC_STORY_STARTER } from "../interopLang"
 
+import { generateDemoJsCode } from "./generateDemoJsCode"
+
 import { compile, Kompilat, compilerSetOnError } from "../compiler/compiler"
 import { Line, LineType } from "../interopTypes"
 import { downloadFile, escapeHtml } from "../interopUtils"
@@ -278,44 +280,7 @@ function initJsEditor() {
 
   const codeJar = CodeJar(editor, highlight, {tab: "  "})
 
-  codeJar.updateCode(`
-
-// CUSTOM JS GOES HERE:
-
-$_onStartApp = (baby) => {
-  
-  // when app starts:
-
-  console.log("baby api:", baby)
-
-  baby.command(
-    {
-      name: "log",
-      
-      onStart: (parts, text, name) => {
-        console.log("START", name, text, parts)
-        if (text === "error") {
-          return "writing 'example error' is not allowed"
-        }
-      },
-
-      onExec: (parts, text, name) => {
-        console.log("EXEC", name, text, parts)
-
-        return {
-          do: [
-            { action: "log", text: "Hi there!" },
-          ]
-        }
-      },
-    }
-  )
-
-
-
-}
-
-  `)
+  codeJar.updateCode(generateDemoJsCode())
 
   codeJarJs = codeJar
 

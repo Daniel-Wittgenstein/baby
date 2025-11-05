@@ -59,5 +59,5 @@ export type Action = {
 
 
 export type Instruction = {
-
+  action: string,
 }
