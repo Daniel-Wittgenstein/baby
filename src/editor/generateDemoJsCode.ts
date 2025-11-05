@@ -7,7 +7,13 @@ export function generateDemoJsCode() {
 
 $_onStartApp = (baby) => {
   
-  // when the app starts, add a new command:
+  // when the app starts:
+
+  // ############################
+  // ############################
+  //   .log command
+  // ############################
+  // ############################
 
   // A simple example custom command that allows you to do:
   // .log Some Text!
@@ -50,6 +56,41 @@ $_onStartApp = (baby) => {
     }
   )
 
+  // ############################
+  // ############################
+  //   .death command
+  // ############################
+  // ############################
+
+  // This example command shows that custom commands
+  // can jump to a label.
+
+  baby.command(
+    {
+      name: "death",
+
+      onStart: (parts, text, name) => {
+      },
+
+      onExec: (parts, text, name) => {
+
+        return {
+
+          do: [
+
+            // say game over:
+
+            { action: "text", text: "GAME OVER!" },
+
+          ],
+
+          // and jump to the label named "death":
+          target: "death",
+        }
+
+      },
+    }
+  )
 
 
 }
