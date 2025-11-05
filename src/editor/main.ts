@@ -59,6 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initCodeEditor()
 
+  initOtherEditors()
+
   ;(window as any).$_onErrorFromIFrame = $_onErrorFromIFrame
 
   initHandlersForSmallScreenView()
@@ -250,6 +252,14 @@ function initCodeEditor() {
   codeJar.onUpdate(() => {
     debounced()
   })
+}
+
+
+
+function initOtherEditors() {
+  const editor = document.querySelector('#js-editor') as HTMLElement
+  const codeJar = CodeJar(editor, highlight, {tab: "  "})
+  codeJar.updateCode(`console.log("1989 by TS??? NO!")`)
 }
 
 

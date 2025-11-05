@@ -46,6 +46,7 @@ function constructIt() {
       <div id="sm_code-wrapper" class="sm_tab-area sm_tab-area-write">
 
         <div id="code-editor"
+          class = "editors"
           contenteditable="true" autocapitalize="off"
           spellcheck="false">
         </div>
@@ -64,9 +65,19 @@ function constructIt() {
       </div>
 
       <div class="sm_tab-area sm_tab-area-css">
+        <div id="css-editor"
+          class = "editors"
+          contenteditable="true" autocapitalize="off"
+          spellcheck="false">
+        </div>
       </div>
 
       <div class="sm_tab-area sm_tab-area-js">
+        <div id="js-editor"
+          class = "editors"
+          contenteditable="true" autocapitalize="off"
+          spellcheck="false">
+        </div>
       </div>
 
 
