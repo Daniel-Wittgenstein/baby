@@ -282,8 +282,29 @@ function initJsEditor() {
 
 // CUSTOM JS GOES HERE:
 
-console.log("baby.txt!")
+$_onStartApp = (baby) => {
+  
+  // when app starts:
 
+  console.log("baby api:", baby)
+
+  baby.command(
+    {
+      name: "example",
+      
+      onStart: (parts, text, name) => {
+        console.log("START", name, text, parts)
+      },
+
+      onExec: (parts, text, name) => {
+        console.log("EXEC", name, text, parts)
+      },
+    }
+  )
+
+
+
+}
 
   `)
 

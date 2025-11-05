@@ -20,6 +20,14 @@ export type AbstractRenderChoice = {
 export type AbstractRenderEl = AbstractRenderText | AbstractRenderChoice
 
 
+export type CustomCommand = {
+  name: string,
+  startFunc: (parts: string[], text: string, name: string) => any, //story author controlled
+    // functions. can return anything (even though they shouldn't)
+  execFunc: (parts: string[], text: string, name: string) => any,
+}
+
+
 export type Command = {
   name: string,
   text: string

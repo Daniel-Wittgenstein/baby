@@ -6,6 +6,7 @@ import { Action } from "./runtimeTypes"
 import { hasLabelStartText } from "./hasLabelStartText"
 import { getFirstWordAndRest, removeFirstChar } from "./utils"
 
+import { CustomCommand } from "./runtimeTypes"
 
 type ExecLineResult = {
   action: Action,
@@ -26,11 +27,16 @@ export class Runner {
   #linePointer: number = 0
   #currentChoices: Line[] = []
   #callbacks: RunnerCallbacks
+  #customCommands: Record<string, CustomCommand>
 
 
-  constructor(storyLines: Line[], callbacks: RunnerCallbacks) {
+  constructor(storyLines: Line[], callbacks: RunnerCallbacks, 
+      customCommands: Record<string, CustomCommand>) {
+
     this.#lines = storyLines
-    const { targetTable, commandTable } = extractLabelAndCommandInfo(this.#lines)
+    this.#customCommands = customCommands
+    const { targetTable, commandTable } = extractLabelAndCommandInfo(this.#lines,
+      this.#customCommands)
     this.#targetTable = targetTable
     this.#commandTable = commandTable
     this.#callbacks = callbacks

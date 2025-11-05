@@ -30,7 +30,7 @@ const postInk = `
 `
 
 export function convertToInk(kompilat: Kompilat) {
-  const { targetTable, commandTable } = extractLabelAndCommandInfo(kompilat.lines)
+  const { targetTable, commandTable } = extractLabelAndCommandInfo(kompilat.lines, {})
   let final = ""
 
   let index = -1

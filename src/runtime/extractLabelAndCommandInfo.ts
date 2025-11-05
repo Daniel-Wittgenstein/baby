@@ -11,7 +11,11 @@ import { hasLabelStartText } from "./hasLabelStartText"
 
 import { arithmeticCommands } from "./arithmetic"
 
-export function extractLabelAndCommandInfo(storyLines: Line[]) {
+import { CustomCommand } from "./runtimeTypes"
+
+export function extractLabelAndCommandInfo(storyLines: Line[],
+  customCommands: Record<string, CustomCommand>
+) {
 
   const targetTable: TargetTable = {}
 
@@ -44,7 +48,8 @@ export function extractLabelAndCommandInfo(storyLines: Line[]) {
       return true
     }
 
-    // allow unknown commands? if yes, return true here:
+    if (customCommands[name]) return true
+
     return false
   }
 

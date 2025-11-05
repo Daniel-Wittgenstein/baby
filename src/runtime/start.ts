@@ -8,7 +8,10 @@ import { Scheduler } from "./scheduler"
 
 import { customConfirm } from "./confirm"
 
+
 import i18n from "./i18n"
+
+import { CustomCommand } from "./runtimeTypes"
 
 import { userError } from "./userError"
 import { setColors, switchTheme, Theme } from "./setColors"
@@ -44,6 +47,8 @@ let animations: boolean = true
 let menuOpen = false
 
 let menu: HTMLElement
+
+let customCommands: Record<string, CustomCommand> = {}
 
 type StoryState = {
   varMap: Record<string, any>
@@ -169,28 +174,40 @@ function startApp() {
 
   initClickHandler()
 
-  runner = new Runner(story.kompilat.lines, {onCheckIfCond})
-
-  scheduler = new Scheduler(50)
-
   const babyApi = createBabyApi()
 
   if ((window as any).$_onStartApp) {
     // optional custom hook for story author:
     // run this function at app start
+    // custom commands get created here:
     if (typeof (window as any).$_onStartApp === "function") {
       ;(window as any).$_onStartApp(babyApi)
     }
   }
+
+  runner = new Runner(story.kompilat.lines, {onCheckIfCond}, customCommands)
+
+  scheduler = new Scheduler(50)
 
   restartStoryFromScratch()
 
 }
 
 
+function createCommand(command: CustomCommand) {
+  if (!(typeof command.name === "string") || command.name === "") {
+    userError(`Commands need a name. ` +
+      `"${command.name}" is not a valid name.`, -1)
+  }
+
+  customCommands[command.name] = command  
+}
+
+
 function createBabyApi() {
   const baby = {
     name: "Baby API",
+    command: createCommand,
   }
   return baby
 }
