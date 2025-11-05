@@ -11,7 +11,7 @@ import { hasLabelStartText } from "./hasLabelStartText"
 
 import { arithmeticCommands } from "./arithmetic"
 
-import { splitCommandTextIntoParts } from "./splitCommandsIntoParts"
+import { splitCommandTextIntoParts } from "./splitCommandTextIntoParts"
 
 import { CustomCommand } from "./runtimeTypes"
 

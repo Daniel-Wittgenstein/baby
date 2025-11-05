@@ -8,7 +8,7 @@ import { getFirstWordAndRest, removeFirstChar } from "./utils"
 
 import { CustomCommand } from "./runtimeTypes"
 
-import { splitCommandTextIntoParts } from "./splitCommandsIntoParts"
+import { splitCommandTextIntoParts } from "./splitCommandTextIntoParts"
 
 import { Instruction } from "./runtimeTypes"
 
