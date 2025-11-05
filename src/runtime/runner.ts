@@ -8,9 +8,12 @@ import { getFirstWordAndRest, removeFirstChar } from "./utils"
 
 import { CustomCommand } from "./runtimeTypes"
 
+import { Instruction } from "./runtimeTypes"
+
 type ExecLineResult = {
   action: Action,
   nextLine: number,
+  customInstructions?: Instruction[],
 }
 
 
@@ -58,8 +61,12 @@ export class Runner {
       }
     }
 
-    const {action,  nextLine} = this.#execLine(this.#linePointer)
+    const {action,  nextLine, customInstructions} = this.#execLine(this.#linePointer)
+    console.log("dafuq", action , customInstructions)
     this.#linePointer = nextLine
+    if (customInstructions) {
+      action.customInstructions = customInstructions
+    }
     return action
   }
 
@@ -92,7 +99,36 @@ export class Runner {
   }
 
 
-  #execCommand(command: Command, index: number, line: Line) {
+  #execCommand(command: Command, index: number, line: Line) : ExecLineResult {
+
+    const customCommand = this.#customCommands[command.name]
+
+    if (customCommand?.onExec) {
+    
+      const parts = command.text.split(/\s-\s/).map(n => n.trim()).filter(Boolean)
+      const result = customCommand.onExec(parts, command.text, command.name)
+
+      let nextLine = index + 1
+
+      if (result.target) {
+        nextLine = this.#targetTable[result.target]
+      }
+
+      return {
+        nextLine,
+        action: {
+          type: ActionType.Command,
+          text: command.text,
+          commandName: command.name,
+          lineNo: line?.orgCodeLineNo,
+        },
+        customInstructions: result.do,
+      }
+
+    }
+
+    // ##################################
+
     if (command.name === "goto") {
       const target = command.text.toLowerCase()
       const nextLine = this.#targetTable[target]
@@ -160,7 +196,9 @@ export class Runner {
     }
 
     if (this.#commandTable[line.index]) {
-      return this.#execCommand(this.#commandTable[line.index], line.index, line)
+      const res = this.#execCommand(this.#commandTable[line.index], line.index, line)
+      console.log("MERDA????", res)
+      return res
     }
 
     if (line.isEnd) {

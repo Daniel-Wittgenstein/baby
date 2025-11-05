@@ -290,7 +290,7 @@ $_onStartApp = (baby) => {
 
   baby.command(
     {
-      name: "example",
+      name: "log",
       
       onStart: (parts, text, name) => {
         console.log("START", name, text, parts)
@@ -301,6 +301,12 @@ $_onStartApp = (baby) => {
 
       onExec: (parts, text, name) => {
         console.log("EXEC", name, text, parts)
+
+        return {
+          do: [
+            { action: "log", text: "Hi there!" },
+          ]
+        }
       },
     }
   )

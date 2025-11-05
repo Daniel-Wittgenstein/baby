@@ -54,4 +54,10 @@ export type Action = {
   choiceIndex?: number,
   commandName?: string,
   lineNo: number,
+  customInstructions?: Instruction[],
+}
+
+
+export type Instruction = {
+
 }

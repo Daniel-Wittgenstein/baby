@@ -31,6 +31,7 @@ debugfast: no
 ###story###
 
 .set x 5+4
+.log Hello!
 
 You are in a forest.
 

@@ -3,7 +3,8 @@ import { loadUserSettings } from "./loadUserSettings"
 
 import { Runner } from "./runner"
 import { AbstractRenderEl, AbstractRenderElType, ActionType,
-  AbstractRenderChoice, AbstractRenderText, Action } from "./runtimeTypes"
+  AbstractRenderChoice, AbstractRenderText, Action, 
+  Instruction} from "./runtimeTypes"
 import { Scheduler } from "./scheduler"
 
 import { customConfirm } from "./confirm"
@@ -504,7 +505,19 @@ function dispatchCommand(action: Action) : ActionType | null {
     return ActionType.EndOfStory
   }
 
+  if (action.customInstructions) {
+    execCustomInstructions(action.customInstructions)
+    return ActionType.Nothing
+  }
+
 }
+
+
+function execCustomInstructions(instructions: Instruction[]) {
+  console.log("custom command generated these custom instructions:", instructions)
+  
+}
+
 
 
 function callRunnerUntilNoMoreContent() {
