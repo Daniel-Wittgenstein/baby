@@ -25,8 +25,12 @@ function constructIt() {
       <div id="error-displayer"></div>
 
       <div id="sm_top-button-wrapper">
-        <button id="sm_play">Play</button>
-        <button id="sm_edit">Edit</button>
+        <button id="sm_write" class="tab">Write</button>
+        <button id="sm_play" class="tab">Play</button>
+        <button id="sm_help" class="tab">Help</button>
+        <button id="sm_css" class="tab">CSS</button>
+        <button id="sm_js" class="tab">JS</button>
+        <div class="spacer"></div>
         <button id="save">Save</button>
       </div>
 

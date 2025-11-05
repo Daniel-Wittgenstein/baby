@@ -76,3 +76,16 @@ body {
   width: 100vw;
   height: calc(100vh - var(--sm_top-height));
 }
+
+.spacer {
+  width: 12px;
+}
+
+.tab {
+  border-radius: 8px 8px 0px 0px;
+}
+
+.tab-selected {
+  background: #85b6e4 !important;
+  color: #fff !important;
+}

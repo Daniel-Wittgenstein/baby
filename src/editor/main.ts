@@ -125,7 +125,7 @@ function $_onErrorFromIFrame(text: string, lineNo: number) {
 
 function initHandlersForSmallScreenView() {
   const buttonPlay = document.getElementById("sm_play")
-  const buttonEdit = document.getElementById("sm_edit")
+  const buttonEdit = document.getElementById("sm_write")
   // buttons do not exist, so we are not in small view and they do
   // not matter, so just return:
   if (!buttonPlay) return
@@ -137,29 +137,28 @@ function initHandlersForSmallScreenView() {
 
 function switchToPlayView() {
   const buttonPlay = document.getElementById("sm_play")
-  const buttonEdit = document.getElementById("sm_edit")
+  const buttonEdit = document.getElementById("sm_write")
   const code = document.getElementById("sm_code-wrapper")
   const play = document.getElementById("sm_play-wrapper")
-
-  buttonEdit.style.display = "block"
-  buttonPlay.style.display = "none"
   code.style.display = "none"
   play.style.display = "block"
+  selectTab("sm_play")
 }
 
 
 function switchToEditView() {
-  const buttonPlay = document.getElementById("sm_play")
-  const buttonEdit = document.getElementById("sm_edit")
   const code = document.getElementById("sm_code-wrapper")
   const play = document.getElementById("sm_play-wrapper")
-
-  buttonEdit.style.display = "none"
-  buttonPlay.style.display = "block"
   code.style.display = "block"
   play.style.display = "none"
+  selectTab("sm_write")
 }
 
+function selectTab(id: string) {
+  const el = document.getElementById(id)
+  document.querySelectorAll(".tab").forEach(el => el.classList.remove("tab-selected"))
+  el.classList.add("tab-selected")
+}
 
 function initMoreMenu() {
   moreMenu = document.getElementById("more-menu")
