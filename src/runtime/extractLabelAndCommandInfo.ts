@@ -36,12 +36,14 @@ export function extractLabelAndCommandInfo(storyLines: Line[],
     if (name === "end") {
       userError(`".end" is not a thing. Either use "end" to close an if block or `
         + `use ".quit" if you want to quit the story.`, orgNo)
+      return
     }
 
     if (name === "quit") {
       if (text.trim()) {
         userError(`I did not expect additional text on a "quit" command line.`, orgNo)
       }
+      return
     }
 
     if (arithmeticCommands[name]) {
@@ -52,6 +54,7 @@ export function extractLabelAndCommandInfo(storyLines: Line[],
 
     if (!customCommand) {
       userError(`command with name "${name}" does not exist.`, orgNo)
+      return
     }
 
     if (!customCommand?.onStart) return // no onStart function: no check, consider
