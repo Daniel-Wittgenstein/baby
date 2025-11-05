@@ -26,6 +26,7 @@ import Prism from "prismjs/components/prism-core"
 import "prismjs/components/prism-clike"
 import "prismjs/components/prism-javascript"
 import "prismjs/themes/prism.css"
+import "prismjs/components/prism-css"
 
 import { debounce } from "./debounce"
 
@@ -66,7 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initCodeEditor()
 
-  initOtherEditors()
+  initJsEditor()
+
+  initCssEditor()
 
   ;(window as any).$_onErrorFromIFrame = $_onErrorFromIFrame
 
@@ -264,11 +267,10 @@ function initCodeEditor() {
 
 
 
-function initOtherEditors() {
+function initJsEditor() {
+
   const editor = document.querySelector('#js-editor') as HTMLElement
   editor.classList.add("language-javascript")
-
-  console.log("LOG PRISM", Prism)
 
   const highlight = (element: HTMLElement) => {
     Prism.highlightElement(element);
@@ -276,8 +278,37 @@ function initOtherEditors() {
 
   const codeJar = CodeJar(editor, highlight, {tab: "  "})
 
-  codeJar.updateCode(`console.log("1989!")`)
+  codeJar.updateCode(`
 
+// CUSTOM JS GOES HERE:
+
+console.log("baby.txt!")
+
+
+  `)
+}
+
+function initCssEditor() {
+
+  const editor = document.querySelector('#css-editor') as HTMLElement
+  editor.classList.add("language-css")
+
+  const highlight = (element: HTMLElement) => {
+    Prism.highlightElement(element);
+  }
+
+  const codeJar = CodeJar(editor, highlight, {tab: "  "})
+
+  codeJar.updateCode(`
+
+/* CUSTOM CSS GOES HERE: */
+
+body {
+  background: red !important;
+}
+
+
+  `)
 }
 
 
