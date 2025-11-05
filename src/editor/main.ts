@@ -17,8 +17,15 @@ import { isChromeMobile } from "./detectChrome"
 import { constructLayoutSmall } from "./constructLayoutSmall"
 
 import { CodeJar } from "../../node_modules/codejar/dist/codejar"
-
 import { highlight } from "./syntaxHighlight"
+
+// prism uses an outdated module system, so that's why these imports look
+// weird, although they are correct:
+// @ts-ignore
+import Prism from "prismjs/components/prism-core"
+import "prismjs/components/prism-clike"
+import "prismjs/components/prism-javascript"
+import "prismjs/themes/prism-tomorrow.css"
 
 import { debounce } from "./debounce"
 
@@ -117,6 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
+  selectTab("sm_js") // testing
 
 })
 
@@ -258,8 +266,18 @@ function initCodeEditor() {
 
 function initOtherEditors() {
   const editor = document.querySelector('#js-editor') as HTMLElement
+  editor.classList.add("language-javascript")
+
+  console.log("LOG PRISM", Prism)
+
+  const highlight = (element: HTMLElement) => {
+    Prism.highlightElement(element);
+  }
+
   const codeJar = CodeJar(editor, highlight, {tab: "  "})
-  codeJar.updateCode(`console.log("1989 by TS??? NO!")`)
+
+  codeJar.updateCode(`console.log("1989!")`)
+
 }
 
 
