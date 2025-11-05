@@ -3,6 +3,8 @@ import { appRunsInsideIframe } from "./environmentDetection"
 
 import { fixHeader } from "./fixHeader"
 
+import docs from "../help/authorHelp"
+
 let parent
 
 export function constructLayoutSmall() {
@@ -59,15 +61,12 @@ function constructIt() {
       </div>
       
       <div class="sm_tab-area sm_tab-area-help">
-        Help
       </div>
 
       <div class="sm_tab-area sm_tab-area-css">
-        CSS
       </div>
 
       <div class="sm_tab-area sm_tab-area-js">
-        JS
       </div>
 
 
@@ -75,5 +74,7 @@ function constructIt() {
     </div>
   `
   parent.innerHTML = html
+
+  document.querySelector(".sm_tab-area-help").innerHTML = docs
 }
 
