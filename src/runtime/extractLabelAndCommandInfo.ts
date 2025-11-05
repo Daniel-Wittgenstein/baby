@@ -28,29 +28,44 @@ export function extractLabelAndCommandInfo(storyLines: Line[],
       if (!doesLabelExist(labelName)) {
         userError(`".goto ${labelName}", but there is no label with name "${labelName}"`, orgNo)
       }
-      return true
+      return
     }
 
     if (name === "end") {
       userError(`".end" is not a thing. Either use "end" to close an if block or `
         + `use ".quit" if you want to quit the story.`, orgNo)
-      return true // yes, return true here!
     }
 
     if (name === "quit") {
       if (text.trim()) {
         userError(`I did not expect additional text on a "quit" command line.`, orgNo)
       }
-      return true
     }
 
     if (arithmeticCommands[name]) {
-      return true
+      return
     }
 
-    if (customCommands[name]) return true
+    const customCommand = customCommands[name]
 
-    return false
+    if (!customCommand) {
+      userError(`command with name "${name}" does not exist.`, orgNo)
+    }
+
+    if (!customCommand.onStart) return // no onStart function: no check, consider
+      // command valid
+
+    //call onStart function:
+
+    const parts = text.split(/\s-\s/).map(n => n.trim()).filter(Boolean)
+    const result = customCommand.onStart(parts, text, name)
+
+    if (typeof result === "string") {
+      userError("custom command error: " + result, orgNo)
+      return
+    }
+
+    return
   }
 
 
@@ -76,11 +91,7 @@ export function extractLabelAndCommandInfo(storyLines: Line[],
       name: commandName,
       text,
     }
-    if (!validateCommand(commandName, text, orgNo)) {
-      userError(`".${commandName}" is not a valid command. `+
-        `If you wanted to create a choice, put a space after the dot.`, orgNo
-      )
-    }
+    validateCommand(commandName, text, orgNo)
   }
 
   //construct label info:

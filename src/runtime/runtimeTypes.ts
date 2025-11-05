@@ -22,9 +22,9 @@ export type AbstractRenderEl = AbstractRenderText | AbstractRenderChoice
 
 export type CustomCommand = {
   name: string,
-  startFunc: (parts: string[], text: string, name: string) => any, //story author controlled
+  onStart: (parts: string[], text: string, name: string) => any, //story author controlled
     // functions. can return anything (even though they shouldn't)
-  execFunc: (parts: string[], text: string, name: string) => any,
+  onExec: (parts: string[], text: string, name: string) => any,
 }
 
 

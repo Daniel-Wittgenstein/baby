@@ -294,6 +294,9 @@ $_onStartApp = (baby) => {
       
       onStart: (parts, text, name) => {
         console.log("START", name, text, parts)
+        if (text === "error") {
+          return "writing 'example error' is not allowed"
+        }
       },
 
       onExec: (parts, text, name) => {
