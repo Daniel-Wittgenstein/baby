@@ -49,6 +49,7 @@
   width: 100vw;
   height: calc(100vh - var(--sm_top-height));
   overflow: auto;
+  background: grey;
 }
 
 

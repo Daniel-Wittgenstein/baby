@@ -24,6 +24,11 @@ body {
 
 .editors {
   padding-left: 4px;
+  background: white;
+}
+
+.sm_tab-area-help {
+  background: white;
 }
 
 
