@@ -21,7 +21,7 @@ import { setColors, switchTheme, Theme } from "./setColors"
 import icons from "./icons"
 import { getFirstWordAndRest } from "./utils"
 
-import { arithmeticCommands, ArithmeticFunc } from "./arithmetic"
+import { arithmeticCommandHasThreeParams, arithmeticCommands, ArithmeticFunc } from "./arithmetic"
 
 // "$__$story" window property exists because we inject it directly
 // into the generated HTML. it holds the story data
@@ -422,9 +422,35 @@ function removeSomeEmptyLines(els: AbstractRenderEl[]) {
 }
 
 
+function dispatchArithmetic3Params(action: Action, arithFunc: ArithmeticFunc) {
+
+  function convert(str: string) {
+    if (isFiniteNumber(str)) {
+      return Number(str)
+    }
+    return varGetValue(str)
+  }
+
+  const [varName, rest] = getFirstWordAndRest(action.text)
+  const [first, second] = getFirstWordAndRest(rest)
+  
+  const firstNum = convert(first)
+  const secondNum = convert(second)
+
+  const oldValue = varGetValue(varName)
+  const result = arithFunc(oldValue, firstNum, secondNum)
+  varSetValue(varName, result, -1)
+}
+
+
 function dispatchArithmetic(action: Action, arithFunc: ArithmeticFunc) {
   const text = action.text
   const lineNo = action.lineNo
+  if (arithmeticCommandHasThreeParams(action.commandName)) {
+    dispatchArithmetic3Params(action, arithFunc)
+    return
+  }
+
   let [varName, rest] = getFirstWordAndRest(text)
   rest = rest.trim()
   if (isFiniteNumber(rest)) {
