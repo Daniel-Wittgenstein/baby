@@ -40,6 +40,12 @@ If a choice is supposed to jump to a label, put a "goto" command on the **next l
   . Choose this!
   .goto mylabel
 
+## gathers
+
+This is a level 2 gather:
+
+  --
+
 ## built-in commands that change variables
 
 ### set
