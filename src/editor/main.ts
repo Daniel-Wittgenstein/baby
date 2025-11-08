@@ -135,7 +135,9 @@ document.addEventListener("DOMContentLoaded", () => {
   drawerContent.classList.add("drawer-content")
   document.body.append(drawerContent)
   
-  createSwipeDrawer(document.querySelector("#app"), drawerContent)
+  createSwipeDrawer(document.querySelector("#app"), drawerContent, () => {
+    //codeJar.editor.blur()
+  })
 
   //// selectTab("sm_js") // testing
 
