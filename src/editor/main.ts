@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   createSwipeDrawer(document.querySelector("#app"), drawerContent, () => {
     const editor = (document.querySelector('#code-editor') as HTMLElement)
-    blockClicksTemporarily(editor, 40)
+    blockClicksTemporarily(editor, 400)
   })
 
   //// selectTab("sm_js") // testing

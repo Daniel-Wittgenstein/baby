@@ -1,4 +1,5 @@
 
+import { keepPinned } from "./keepPinned"
 
 const DRAG_SPEED = 20
 const MINIMUM_DRAG_AMOUNT_TO_OPEN_OR_CLOSE = 100
@@ -35,6 +36,10 @@ export function createSwipeDrawer(parent: HTMLElement, content: HTMLElement,
   drawer.className = "drawer"
   drawer.appendChild(content)
   parent.appendChild(drawer)
+
+  keepPinned(drawer, () => {
+    drawer.style.transform = `translateX(100%)`
+  })
 
   let startX = 0
   let startY = 0

@@ -6,7 +6,7 @@
 */
 
 
-export function keepPinned(el: HTMLElement) {
+export function keepPinned(el: HTMLElement, onFire?: (() => void)) {
   if (window.visualViewport) {
     const adjustIt = () => {
       
@@ -15,6 +15,7 @@ export function keepPinned(el: HTMLElement) {
 
       // Use translateY to keep it visually pinned to the top of the screen:
       el.style.transform = `translateY(${offsetY}px)`
+      if (onFire) onFire()
     }
 
     window.visualViewport.addEventListener('resize', adjustIt)
