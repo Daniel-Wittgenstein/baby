@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "codejar": "4.3.0",
-    "prismjs": "1.30.0",
-    "tinygesture": "^3.0.0"
+    "prismjs": "1.30.0"
   }
 }
