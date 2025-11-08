@@ -10,7 +10,7 @@
     This is the top bar.
     It has to be adjusted via a JS hack for smartphones:
     see file:
-    fixHeader.ts
+    keepPinned.ts
     Any change you make here has the potential to break everything,
     so proceed with caution.
   */
@@ -80,3 +80,26 @@
   border: 2px solid black !important;
 }
 
+#wizard-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 900000;
+  pointer-events: none;
+}
+
+#wizard-collapser {
+  position: absolute;
+  right: 16px; /* A bit too much to look good on Firefox,
+  but some scrollbars in some browsers are pretty wide. */
+  top: var(--sm_top-height);
+  width: 24px;
+  height: 24px;
+  background: #ddd;
+  border-radius: 4px;
+  pointer-events: auto;
+}

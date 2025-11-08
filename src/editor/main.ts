@@ -21,6 +21,9 @@ import { constructLayoutSmall } from "./constructLayoutSmall"
 import { CodeJar } from "../../node_modules/codejar/dist/codejar"
 import { highlight } from "./syntaxHighlight"
 
+// @ts-ignore
+import TinyGesture from 'tinygesture'
+
 // prism uses an outdated module system, so that's why these imports look
 // weird, although they are correct:
 // @ts-ignore
@@ -129,9 +132,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
+  initSwiping()
+
   //// selectTab("sm_js") // testing
 
 })
+
+
+function initSwiping() {
+
+  /*
+  
+  Tinygesture cannot preventDefault,
+  so if you swipe to the right and slightly down or up,
+  the editor will still scroll.
+
+  The only solution would probably be to kick
+  this dependency out and code our own swipe gesture.
+
+  */
+
+  const target = document.body
+  const gesture = new TinyGesture(target)
+  
+  gesture.on('swipeleft', (event) => {
+    console.log("swiping left")
+  })
+
+  gesture.on('swiperight', (event) => {
+    console.log("swiping right")
+  })
+
+}
+
 
 function $_onErrorFromIFrame(text: string, lineNo: number) {
   onStoryError(text, lineNo)
