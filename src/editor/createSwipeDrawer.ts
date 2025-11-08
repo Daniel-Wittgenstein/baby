@@ -10,7 +10,8 @@ function clamp(value: number, min: number, max: number) {
 
 
 function isDraggingHorizontally(dx: number, dy: number) {
-  return Math.abs(dx) > Math.abs(dy)
+  return Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40 //threshold
+  // is important, otherwise opening drawer will highlight stuff in the editor
 }
 
 

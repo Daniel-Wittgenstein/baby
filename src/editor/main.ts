@@ -131,13 +131,21 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   const drawerContent = document.createElement("div")
-  drawerContent.innerHTML = "drawer"
   drawerContent.classList.add("drawer-content")
   document.body.append(drawerContent)
-  
+
+  const b = document.createElement("button")
+  const editor = (document.querySelector('#code-editor') as HTMLElement)
+  b.innerHTML = "hello world"
+  drawerContent.append(b)
+
+  b.addEventListener("click", () => {
+    insertAtCursor(editor, "Hello world!")
+  })
+
   createSwipeDrawer(document.querySelector("#app"), drawerContent, () => {
     const editor = (document.querySelector('#code-editor') as HTMLElement)
-    temporarilyDisableEditor(editor, 200)
+    blockClicksTemporarily(editor, 40)
   })
 
   //// selectTab("sm_js") // testing
@@ -145,13 +153,35 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 
-function temporarilyDisableEditor(editorEl: HTMLElement, duration = 500) {
-  editorEl.style.pointerEvents = "none"
+function blockClicksTemporarily(editorEl: HTMLElement, duration = 500) {
+  // we cannot do this by setting "pointer-events: none" bc that hides mobile keyboard!
+  const handler = (e: Event) => e.preventDefault()
+  editorEl.addEventListener("mousedown", handler, true)
+  editorEl.addEventListener("touchstart", handler, { passive: false, capture: true })
   setTimeout(() => {
-    editorEl.style.pointerEvents = "auto"
+    editorEl.removeEventListener("mousedown", handler, true)
+    editorEl.removeEventListener("touchstart", handler, true)
   }, duration)
 }
 
+function insertAtCursor(editorEl: HTMLElement, text: string) {
+  const sel = window.getSelection()
+  if (!sel || !sel.rangeCount) return
+
+  const range = sel.getRangeAt(0)
+  range.deleteContents() // remove any selected text
+
+  const textNode = document.createTextNode(text)
+  range.insertNode(textNode)
+
+  // Move cursor to end of inserted text:
+  range.setStartAfter(textNode)
+  range.setEndAfter(textNode)
+  sel.removeAllRanges()
+  sel.addRange(range)
+
+  editorEl.dispatchEvent(new Event("input"))
+}
 
 
 function $_onErrorFromIFrame(text: string, lineNo: number) {
