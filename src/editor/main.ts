@@ -5,8 +5,6 @@ import { MAGIC_STORY_STARTER } from "../interopLang"
 
 import { generateDemoJsCode } from "./generateDemoJsCode"
 
-import { createSwipeDrawer } from "./createSwipeDrawer"
-
 import { compile, Kompilat, compilerSetOnError } from "../compiler/compiler"
 import { Line, LineType } from "../interopTypes"
 import { downloadFile, escapeHtml } from "../interopUtils"
@@ -130,39 +128,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
-  const drawerContent = document.createElement("div")
-  drawerContent.classList.add("drawer-content")
-  document.body.append(drawerContent)
-
-  const b = document.createElement("button")
-  const editor = (document.querySelector('#code-editor') as HTMLElement)
-  b.innerHTML = "hello world"
-  drawerContent.append(b)
-
-  b.addEventListener("click", () => {
-    insertAtCursor(editor, "Hello world!")
-  })
-
-  createSwipeDrawer(document.querySelector("#app"), drawerContent, () => {
-    const editor = (document.querySelector('#code-editor') as HTMLElement)
-    blockClicksTemporarily(editor, 400)
-  })
 
   //// selectTab("sm_js") // testing
 
 })
 
-
-function blockClicksTemporarily(editorEl: HTMLElement, duration = 500) {
-  // we cannot do this by setting "pointer-events: none" bc that hides mobile keyboard!
-  const handler = (e: Event) => e.preventDefault()
-  editorEl.addEventListener("mousedown", handler, true)
-  editorEl.addEventListener("touchstart", handler, { passive: false, capture: true })
-  setTimeout(() => {
-    editorEl.removeEventListener("mousedown", handler, true)
-    editorEl.removeEventListener("touchstart", handler, true)
-  }, duration)
-}
 
 function insertAtCursor(editorEl: HTMLElement, text: string) {
   const sel = window.getSelection()
