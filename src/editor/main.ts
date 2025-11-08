@@ -5,6 +5,8 @@ import { MAGIC_STORY_STARTER } from "../interopLang"
 
 import { generateDemoJsCode } from "./generateDemoJsCode"
 
+import { createSwipeDrawer } from "./createSwipeDrawer"
+
 import { compile, Kompilat, compilerSetOnError } from "../compiler/compiler"
 import { Line, LineType } from "../interopTypes"
 import { downloadFile, escapeHtml } from "../interopUtils"
@@ -20,9 +22,6 @@ import { constructLayoutSmall } from "./constructLayoutSmall"
 
 import { CodeJar } from "../../node_modules/codejar/dist/codejar"
 import { highlight } from "./syntaxHighlight"
-
-// @ts-ignore
-import TinyGesture from 'tinygesture'
 
 // prism uses an outdated module system, so that's why these imports look
 // weird, although they are correct:
@@ -57,8 +56,6 @@ let iframe: any
 let moreMenu: any
 
 let runtimeData: any
-
-let wizardIsOpen = false
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -133,67 +130,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
-  initWizard()
+  const drawerContent = document.createElement("div")
+  drawerContent.innerHTML = "fuck you"
+  drawerContent.classList.add("drawer-content")
+  document.body.append(drawerContent)
+  
+  createSwipeDrawer(document.querySelector("#app"), drawerContent)
 
   //// selectTab("sm_js") // testing
 
 })
-
-
-function initWizard() {
-
-  /*
-  
-  Tinygesture cannot preventDefault,
-  so if you swipe to the right and slightly down or up,
-  the editor will still scroll.
-
-  The only solution would probably be to kick
-  this dependency out and code our own swipe gesture.
-
-  */
-
-  const target = document.body
-  const gesture = new TinyGesture(target)
-  
-  gesture.on('swipeleft', (event) => {
-    console.log("swiping left")
-    openWizard()
-  })
-
-  gesture.on('swiperight', (event) => {
-    console.log("swiping right")
-    closeWizard()
-  })
-
-  document.querySelector("#wizard-collapser").addEventListener("click" , () => {
-    toggleWizard()
-  })
- 
-}
-
-
-function openWizard() {
-  wizardIsOpen = true
-  const wiz = document.querySelector("#wizard-menu") as HTMLElement
-  wiz.style.display = "flex"
-}
-
-
-function closeWizard() {
-  wizardIsOpen = false
-  const wiz = document.querySelector("#wizard-menu") as HTMLElement
-  wiz.style.display = "none"
-}
-
-
-function toggleWizard() {
-  if (wizardIsOpen) {
-    closeWizard()
-  } else {
-    openWizard()
-  }
-}
 
 
 function $_onErrorFromIFrame(text: string, lineNo: number) {

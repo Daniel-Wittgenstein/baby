@@ -17,21 +17,12 @@ export function constructLayoutSmall() {
   constructIt()
 
   keepPinned(document.getElementById("sm_top"))
-
-  keepPinned(document.getElementById("wizard-overlay"))
-
+  
 }
 
 
 function constructIt() {
   const html = `
-
-    <div id="wizard-menu">
-    </div>
-
-    <div id="wizard-overlay">
-      <div id="wizard-collapser">◀</div>
-    </div>
 
     <div id="sm_top">
       
