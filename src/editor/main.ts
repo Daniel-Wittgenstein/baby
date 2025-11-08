@@ -131,17 +131,27 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   const drawerContent = document.createElement("div")
-  drawerContent.innerHTML = "fuck you"
+  drawerContent.innerHTML = "drawer"
   drawerContent.classList.add("drawer-content")
   document.body.append(drawerContent)
   
   createSwipeDrawer(document.querySelector("#app"), drawerContent, () => {
-    //codeJar.editor.blur()
+    const editor = (document.querySelector('#code-editor') as HTMLElement)
+    temporarilyDisableEditor(editor, 200)
   })
 
   //// selectTab("sm_js") // testing
 
 })
+
+
+function temporarilyDisableEditor(editorEl: HTMLElement, duration = 500) {
+  editorEl.style.pointerEvents = "none"
+  setTimeout(() => {
+    editorEl.style.pointerEvents = "auto"
+  }, duration)
+}
+
 
 
 function $_onErrorFromIFrame(text: string, lineNo: number) {

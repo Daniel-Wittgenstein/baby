@@ -62,7 +62,7 @@ export function createSwipeDrawer(parent: HTMLElement, content: HTMLElement,
         // So the editor does not scroll:
         e.preventDefault()
 
-        //onMove()
+        onMove()
 
         if (dx > 0 && !drawerIsOpen) return
         
@@ -94,7 +94,6 @@ export function createSwipeDrawer(parent: HTMLElement, content: HTMLElement,
 
       if (isDraggingHorizontally(dx, dy)) {
 
-        //onMove()
 
         if (Math.abs(dx) < MINIMUM_DRAG_AMOUNT_TO_OPEN_OR_CLOSE) {
           if (drawerIsOpen) {
@@ -111,6 +110,7 @@ export function createSwipeDrawer(parent: HTMLElement, content: HTMLElement,
         }
         // Prevent scrolling if user is dragging horizontally:
         // So the editor does not scroll:
+        onMove()
         e.preventDefault()
       }
     },
