@@ -1,6 +1,12 @@
+import { getRndInt } from "./randomFuncs"
 
 
-export type ArithmeticFunc = (val1: any, val2: any) => any
+export type ArithmeticFunc = (...args: any[]) => any
+
+export const arithmeticCommandHasThreeParams = (name: string) => {
+  if (name === "roll") return true
+  return false
+}
 
 
 export const arithmeticCommands = {
@@ -11,6 +17,7 @@ export const arithmeticCommands = {
   div: (a, b) => a / b,
   round: (a, b) => Math.round(a),
   floor: (a, b) => Math.floor(a),
+  roll: (a, b, c) => getRndInt(b, c),
 }
 
 
@@ -22,5 +29,6 @@ export const arithmeticToInk = {
   div: (a, b) => `${a} /= ${b}`,
   round: (a, _) => `${a} = round(a)`,
   floor: (a, _) => `${a} = FLOOR(a)`,
+  roll: (a, b, c) => `${a} = RANDOM(${b}, ${c})`,
 }
 

@@ -31,6 +31,8 @@ debugfast: no
 ###story###
 
 .set x 5+4
+.log Hello!
+.chance 50% - Heads! - Tails!
 
 You are in a forest.
 

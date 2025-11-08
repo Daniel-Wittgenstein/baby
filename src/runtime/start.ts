@@ -3,11 +3,13 @@ import { loadUserSettings } from "./loadUserSettings"
 
 import { Runner } from "./runner"
 import { AbstractRenderEl, AbstractRenderElType, ActionType,
-  AbstractRenderChoice, AbstractRenderText, Action } from "./runtimeTypes"
+  AbstractRenderChoice, AbstractRenderText, Action, 
+  Instruction} from "./runtimeTypes"
 import { Scheduler } from "./scheduler"
 
 import { customConfirm } from "./confirm"
 
+import { getRndInt } from "./randomFuncs"
 
 import i18n from "./i18n"
 
@@ -19,7 +21,7 @@ import { setColors, switchTheme, Theme } from "./setColors"
 import icons from "./icons"
 import { getFirstWordAndRest } from "./utils"
 
-import { arithmeticCommands, ArithmeticFunc } from "./arithmetic"
+import { arithmeticCommandHasThreeParams, arithmeticCommands, ArithmeticFunc } from "./arithmetic"
 
 // "$__$story" window property exists because we inject it directly
 // into the generated HTML. it holds the story data
@@ -208,6 +210,9 @@ function createBabyApi() {
   const baby = {
     name: "Baby API",
     command: createCommand,
+    set: varSetValue,
+    get: varGetValue,
+    roll: getRndInt,
   }
   return baby
 }
@@ -417,9 +422,35 @@ function removeSomeEmptyLines(els: AbstractRenderEl[]) {
 }
 
 
+function dispatchArithmetic3Params(action: Action, arithFunc: ArithmeticFunc) {
+
+  function convert(str: string) {
+    if (isFiniteNumber(str)) {
+      return Number(str)
+    }
+    return varGetValue(str)
+  }
+
+  const [varName, rest] = getFirstWordAndRest(action.text)
+  const [first, second] = getFirstWordAndRest(rest)
+  
+  const firstNum = convert(first)
+  const secondNum = convert(second)
+
+  const oldValue = varGetValue(varName)
+  const result = arithFunc(oldValue, firstNum, secondNum)
+  varSetValue(varName, result, -1)
+}
+
+
 function dispatchArithmetic(action: Action, arithFunc: ArithmeticFunc) {
   const text = action.text
   const lineNo = action.lineNo
+  if (arithmeticCommandHasThreeParams(action.commandName)) {
+    dispatchArithmetic3Params(action, arithFunc)
+    return
+  }
+
   let [varName, rest] = getFirstWordAndRest(text)
   rest = rest.trim()
   if (isFiniteNumber(rest)) {
@@ -507,6 +538,28 @@ function dispatchCommand(action: Action) : ActionType | null {
 }
 
 
+function execCustomInstructions(instructions: Instruction[], 
+    addEl: (el: AbstractRenderEl) => void) {
+
+  for (const instr of instructions) {
+    console.log("perform instruction:", instr)
+    const action = instr.action
+    
+    if (action === "js") {
+      instr?.run()
+
+    } else if (action === "text") {
+      addEl({
+        type: AbstractRenderElType.Text,
+        text: instr.text,
+      })
+    }
+
+  }
+}
+
+
+
 function callRunnerUntilNoMoreContent() {
 
   function addEl(el: AbstractRenderEl) {
@@ -538,6 +591,12 @@ function callRunnerUntilNoMoreContent() {
     }
 
     if (action.type === ActionType.Command) {
+
+      if (action.customInstructions) {
+        execCustomInstructions(action.customInstructions, addEl)
+        continue
+      }
+
       const result = dispatchCommand(action)
       if (result === ActionType.EndOfStory) {
         endTheStory()
