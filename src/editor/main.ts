@@ -58,6 +58,7 @@ let moreMenu: any
 
 let runtimeData: any
 
+let wizardIsOpen = false
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -132,14 +133,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
-  initSwiping()
+  initWizard()
 
   //// selectTab("sm_js") // testing
 
 })
 
 
-function initSwiping() {
+function initWizard() {
 
   /*
   
@@ -157,12 +158,41 @@ function initSwiping() {
   
   gesture.on('swipeleft', (event) => {
     console.log("swiping left")
+    openWizard()
   })
 
   gesture.on('swiperight', (event) => {
     console.log("swiping right")
+    closeWizard()
   })
 
+  document.querySelector("#wizard-collapser").addEventListener("click" , () => {
+    toggleWizard()
+  })
+ 
+}
+
+
+function openWizard() {
+  wizardIsOpen = true
+  const wiz = document.querySelector("#wizard-menu") as HTMLElement
+  wiz.style.display = "flex"
+}
+
+
+function closeWizard() {
+  wizardIsOpen = false
+  const wiz = document.querySelector("#wizard-menu") as HTMLElement
+  wiz.style.display = "none"
+}
+
+
+function toggleWizard() {
+  if (wizardIsOpen) {
+    closeWizard()
+  } else {
+    openWizard()
+  }
 }
 
 

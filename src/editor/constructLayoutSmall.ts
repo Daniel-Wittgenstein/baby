@@ -25,6 +25,10 @@ export function constructLayoutSmall() {
 
 function constructIt() {
   const html = `
+
+    <div id="wizard-menu">
+    </div>
+
     <div id="wizard-overlay">
       <div id="wizard-collapser">◀</div>
     </div>

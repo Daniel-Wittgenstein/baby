@@ -88,7 +88,7 @@
   height: 100vh;
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0);
-  z-index: 900000;
+  z-index: 7000;
   pointer-events: none;
 }
 
@@ -97,9 +97,18 @@
   right: 16px; /* A bit too much to look good on Firefox,
   but some scrollbars in some browsers are pretty wide. */
   top: var(--sm_top-height);
-  width: 24px;
-  height: 24px;
+  padding: 12px;
   background: #ddd;
   border-radius: 4px;
   pointer-events: auto;
+}
+
+#wizard-menu {
+  background: red;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90vw;
+  height: 100vh;
+  z-index: 8000;
 }
